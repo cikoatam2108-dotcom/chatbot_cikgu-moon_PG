@@ -3,93 +3,85 @@ import streamlit as st
 # Konfigurasi Halaman
 st.set_page_config(page_title="Chatbot Cikgu Moon", page_icon="🌸", layout="wide")
 
-# Custom CSS untuk warna Pastel mengikut rujukan gambar
+# CSS KHAS: TEMA PINK LEMBUT PASTEL
 st.markdown("""
     <style>
-    /* Latar belakang keseluruhan */
+    /* 1. Latar Belakang Keseluruhan (Pink Sangat Lembut) */
     .stApp {
-        background-color: #FDFBFF;
+        background-color: #FFF0F5; 
     }
     
-    /* Font dan Warna Tajuk */
+    /* 2. Warna Teks (Kelabu Pink Lembut, Bukan Hitam) */
+    html, body, [class*="st-"] {
+        color: #B27081 !important; 
+    }
+
+    /* 3. Kotak Input (Semua jadi Pink Lembut) */
+    div[data-baseweb="select"], 
+    div[data-baseweb="input"],
+    div[data-baseweb="base-input"],
+    .stMultiSelect div[data-baseweb="select"] {
+        background-color: #FFE4E1 !important; /* Misty Rose */
+        border: 2px solid #FFC0CB !important; /* Pink Pastel Border */
+        border-radius: 15px !important;
+    }
+
+    /* 4. Tajuk (Pink Pastel Manis) */
     h1, h2, h3 {
-        color: #FFA7C4 !important; /* Pink Pastel */
-        font-family: 'Helvetica Neue', sans-serif;
+        color: #FFB6C1 !important; 
+        font-family: 'Arial', sans-serif;
     }
 
-    /* Kotak Input / Sidebar-style containers */
-    .stSelectbox, .stMultiSelect, .stTextInput {
-        background-color: #F2FFF2; /* Hijau Pastel Sangat Lembut */
-        border-radius: 10px;
-    }
-
-    /* Button Cantik */
+    /* 5. Button (Kombinasi Pink & Hijau Pastel Lembut) */
     .stButton>button {
-        background-color: #FFD1DC; /* Pink Pastel */
-        color: #666;
-        border-radius: 20px;
-        border: 2px solid #B2F2BB; /* Hijau Pastel */
-        width: 100%;
+        background-color: #FFC0CB !important;
+        color: white !important;
+        border-radius: 25px !important;
+        border: 3px solid #E0FFE0 !important; /* Border Hijau Pastel sangat lembut */
         font-weight: bold;
-        transition: 0.3s;
+        padding: 10px 24px;
     }
     
     .stButton>button:hover {
-        background-color: #B2F2BB;
-        border: 2px solid #FFD1DC;
+        background-color: #FFD1DC !important;
+        border: 3px solid #FFB6C1 !important;
     }
 
-    /* Kotak Hasil Prompt */
-    .result-box {
-        background-color: #E8F8F5;
-        padding: 20px;
-        border-radius: 15px;
-        border-left: 10px solid #FFD1DC;
+    /* 6. Kotak Hasil Prompt (Hijau Pastel Lembut) */
+    .stCodeBlock, .stTextArea textarea {
+        background-color: #F0FFF0 !important; 
+        border: 2px solid #D7FFD7 !important;
+        border-radius: 15px !important;
+    }
+
+    /* Hilangkan garisan fokus hitam */
+    *:focus {
+        outline: none !important;
+        border-color: #FFB6C1 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- HEADER SECTION ---
+# --- ISI KANDUNGAN DASHBOARD ---
 st.title("✨ Chatbot Cikgu Moon")
-st.write("Sila pilih kriteria di bawah untuk menjana prompt NotebookLM anda.")
+st.write("Jana prompt dengan gaya pastel yang tenang dan cantik.")
 
-# --- UI LAYOUT (Ikut Gambar Pertama) ---
-col1, col2, col3 = st.columns(3)
+# Letak gambar Moon kat sini kalau dah ada
+# st.image("logo.png", width=150)
+
+col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("### 🎨 Visual & Gaya")
-    gaya = st.selectbox("Gaya Kandungan", ["Infografik", "Nota Ringkas", "Kuiz Interaktif", "Cerita Pendek"])
-    warna_tema = st.multiselect("Tema Warna", ["Pink Pastel", "Hijau Pastel", "Biru Langit", "Kuning Lembut"], default=["Pink Pastel", "Hijau Pastel"])
-    layout_pref = st.radio("Susunan (Grid)", ["1 Lajur", "2 Lajur", "Tiga Segi"])
+    st.markdown("### 🌸 Pilihan Gaya")
+    gaya = st.selectbox("Pilih Gaya Visual", ["Pastel Soft", "Ceria", "Minimalis"])
+    nada = st.selectbox("Nada Suara", ["Mesra", "Pendidikan", "Santai"])
 
 with col2:
-    st.markdown("### 📚 Subjek & Sasaran")
-    subjek = st.text_input("Subjek (cth: RBT / BM)", placeholder="Taip subjek di sini...")
-    tahap = st.selectbox("Tahap Murid", ["Tahun 1-3", "Tahun 4-6", "Tingkatan 1-3"])
-    topik = st.text_area("Topik Spesifik", placeholder="Contoh: Pengenalan kepada Mikropengawal")
+    st.markdown("### 📝 Butiran Kandungan")
+    subjek = st.text_input("Subjek/Topik", placeholder="Contoh: RBT Tahun 4")
+    audiens = st.selectbox("Untuk Siapa?", ["Murid", "Guru", "Orang Awam"])
 
-with col3:
-    st.markdown("### ⚙️ Tetapan Output")
-    nada = st.select_slider("Nada Penulisan", options=["Sangat Santai", "Mesra", "Formal"])
-    format_output = st.selectbox("Format Fail", ["Teks Markdown", "Jadual", "Senarai Point"])
-
-# --- GENERATE PROMPT ---
 st.markdown("---")
-if st.button("🚀 JANA PROMPT UNTUK NOTEBOOKLM"):
-    prompt_final = f"""
-    Hai NotebookLM, saya mahu anda bertindak sebagai pembantu guru. 
-    Sila bina kandungan untuk subjek {subjek} bertajuk '{topik}'.
-    Sasaran audiens adalah murid {tahap}.
-    Gunakan gaya {gaya} dengan nada yang {nada}.
-    Untuk susunan visual, cadangkan format {layout_pref} dengan tema warna {', '.join(warna_tema)}.
-    Sila hasilkan dalam format {format_output} dalam Bahasa Melayu yang ceria.
-    """
-    
-    st.markdown('<div class="result-box">', unsafe_allow_html=True)
-    st.subheader("Salin Prompt di Bawah:")
-    st.code(prompt_final, language="text")
-    st.success("Prompt berjaya dijana! Sila salin dan 'paste' ke dalam NotebookLM Moon.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer
-st.markdown("<br><hr><center><p style='color: #999;'>Dashboard Chatbot Cikgu Moon | Dibina dengan Streamlit & ❤️</p></center>", unsafe_allow_html=True)
+if st.button("Jana Prompt Sekarang 💖"):
+    st.success("Prompt sedang disediakan...")
+    # Sini Moon boleh letak logik jana prompt macam tadi
