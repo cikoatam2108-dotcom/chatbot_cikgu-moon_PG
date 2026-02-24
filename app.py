@@ -3,122 +3,134 @@ import streamlit as st
 # Konfigurasi Halaman
 st.set_page_config(page_title="Chatbot Cikgu Moon", page_icon="🌸", layout="wide")
 
-# CSS UNTUK BACKGROUND BIRU LAUT, CORAK BINTANG/LOVE & KOTAK PINK
+# CSS UNTUK TEMA PASTEL PERFECT MOON
 st.markdown("""
     <style>
-    /* 1. Background Biru Laut Pastel dengan Corak */
+    /* 1. Background Biru Laut dengan Corak Bintang & Love */
     .stApp {
-        background-color: #E0F7FA !important; /* Biru Laut Pastel */
+        background-color: #E0F7FA !important;
         background-image: 
-            radial-gradient(#FFB6C1 1px, transparent 1px), 
-            radial-gradient(#FFD700 1px, transparent 1px);
-        background-size: 40px 40px;
-        background-position: 0 0, 20px 20px;
+            radial-gradient(circle, #FFB6C1 10%, transparent 10.2%), 
+            radial-gradient(circle, #FFD700 10%, transparent 10.2%);
+        background-size: 60px 60px;
+        background-position: 0 0, 30px 30px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
-    /* 2. Container untuk Header (Logo & Tajuk Sebelah-sebelah) */
-    .header-box {
+    /* 2. Header Container (Logo + Tajuk) */
+    .header-section {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 30px;
-        background: rgba(255, 255, 255, 0.6);
+        gap: 20px;
         padding: 20px;
-        border-radius: 30px;
-        margin-bottom: 40px;
-        border: 3px solid #FFD1DC;
+        margin-bottom: 30px;
     }
 
-    /* 3. Tajuk Warna-Warna Gula-Gula */
-    .rainbow-title {
+    .rainbow-text {
         font-family: 'Comic Sans MS', cursive, sans-serif;
-        font-size: 55px;
+        font-size: 50px;
         font-weight: bold;
-        text-align: center;
         background: linear-gradient(to right, #FF9AA2, #FFB7B2, #FFDAC1, #E2F0CB, #B5EAD7, #C7CEEA);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        filter: drop-shadow(2px 2px 0px #ffffff);
+        filter: drop-shadow(3px 3px 0px white);
     }
 
-    /* 4. Kotak UI Pink Lembut (Pastikan Tak Jadi Hitam) */
+    /* 3. Kotak Borang (UI mengikut rujukan Moon) */
+    .form-container {
+        background-color: rgba(255, 255, 255, 0.8) !important;
+        border-radius: 25px;
+        padding: 25px;
+        border: 2px solid #FFD1DC;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    /* 4. Kotak Input Pink Lembut */
     div[data-baseweb="select"], div[data-baseweb="input"], .stTextArea textarea {
-        background-color: #FFD1DC !important; /* Pink Lembut */
-        border: 2px solid #FFB6C1 !important;
-        border-radius: 15px !important;
+        background-color: #FFF0F5 !important; /* Pink sangat lembut */
+        border: 2px solid #FFD1DC !important;
+        border-radius: 12px !important;
     }
 
-    /* Tukar warna tulisan dalam kotak supaya nampak (Bukan Putih/Hitam) */
-    div[role="listbox"], div[data-baseweb="select"] *, input {
+    /* Warna tulisan dalam input (bukan hitam pekat) */
+    input, span, p, label {
         color: #7A5C61 !important;
-        font-weight: bold !important;
+        font-weight: 500 !important;
     }
 
-    /* 5. Label Tajuk Kecil */
-    .stMarkdown h3 {
-        color: #FF8EAD !important;
-        font-family: 'Comic Sans MS', cursive, sans-serif;
-    }
-
-    /* 6. Button Jana Prompt */
+    /* 5. Button Jana (Cantik & Pastel) */
     .stButton>button {
-        background: linear-gradient(135deg, #FFD1DC 0%, #B2F2BB 100%) !important;
-        color: #614147 !important;
-        border-radius: 50px !important;
+        background: linear-gradient(to right, #FFD1DC, #B2F2BB) !important;
+        color: #7A5C61 !important;
         border: 4px solid white !important;
+        border-radius: 30px !important;
         font-size: 22px !important;
         font-weight: bold !important;
-        padding: 15px 30px !important;
-        width: 100% !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        width: 100%;
+        padding: 15px !important;
+        transition: 0.3s;
+    }
+
+    .stButton>button:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- HEADER SECTION (LOGO + TAJUK) ---
-st.markdown('<div class="header-box">', unsafe_allow_html=True)
-col_l, col_t = st.columns([1, 3])
-
-with col_l:
+# --- HEADER SECTION ---
+st.markdown('<div class="header-section">', unsafe_allow_html=True)
+col_logo, col_title = st.columns([1, 4])
+with col_logo:
     try:
-        st.image("logo.png", width=150)
+        st.image("logo.png", width=140)
     except:
-        st.write("🌸") # Muncul kalau logo.png belum ada
-
-with col_t:
-    st.markdown('<h1 class="rainbow-title">CHATBOT CIKGU MOON</h1>', unsafe_allow_html=True)
+        st.write("🌸")
+with col_title:
+    st.markdown('<h1 class="rainbow-text">CHATBOT CIKGU MOON</h1>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- MAIN CONTENT (KOTAK PINK) ---
-c1, c2, c3, c4 = st.columns(4)
+# --- UI BORANG (IKUT RUJUKAN GAMBAR MOON) ---
+with st.container():
+    st.markdown('<div class="form-container">', unsafe_allow_html=True)
+    
+    # Lajur mengikut rujukan: Keutamaan Gaya | Skop Kandungan | Butiran
+    c1, c2, c3 = st.columns(3)
 
-with c1:
-    st.markdown("### 🎨 Gaya")
-    gaya = st.selectbox("Visual", ["Profesional", "Pastel Soft", "Ceria"], key="v1")
-    lajur = st.selectbox("Grid", ["1 Lajur", "2 Lajur", "Grid 2x2"], key="v2")
+    with c1:
+        st.markdown("### ✨ Keutamaan Gaya")
+        gaya_v = st.selectbox("Gaya Visual", ["Profesional", "Ceria", "Minimalis", "Anime/Chibi"])
+        lajur_v = st.radio("Susunan Grid", ["1 Lajur", "2 Lajur", "Grid Panel 2x2", "Grid Panel 4x3"])
+        nada_v = st.selectbox("Nada", ["Pendidikan", "Santai", "Formal", "Inspirasi"])
 
-with c2:
-    st.markdown("### 👥 Sasaran")
-    audiens = st.selectbox("Audiens", ["Murid", "Guru", "Ibu Papa"], key="s1")
-    tema = st.text_input("Tema", placeholder="Taip di sini...", key="s2")
+    with c2:
+        st.markdown("### 👥 Skop Kandungan")
+        audiens = st.multiselect("Sasaran Audiens", ["Pemula", "Murid", "Guru", "Remaja", "Ibu Bapa"], default=["Murid"])
+        tema = st.text_input("Tema / Topik (Pilihan)", placeholder="Taip di sini...")
+        format_o = st.selectbox("Format Output", ["Infografik", "Slaid", "Nota Ringkas"])
 
-with c3:
-    st.markdown("### 📝 Info")
-    jenis = st.selectbox("Output", ["Infografik", "Slaid", "Nota"], key="i1")
-    nada = st.selectbox("Nada", ["Pendidikan", "Santai"], key="i2")
+    with c3:
+        st.markdown("### 💎 Butiran Visual")
+        skema_w = st.selectbox("Skema Warna", ["Colorful", "Pastel", "Monokrom", "Hangat/Sejuk"])
+        latar_b = st.selectbox("Gaya Latar Belakang", ["Putih", "Digital", "Buku Nota", "Gradien"])
+        tambahan = st.text_input("Lain-lain Arahan", placeholder="Cth: Masukkan pantun...")
 
-with c4:
-    st.markdown("### 💎 Butiran")
-    warna = st.selectbox("Warna", ["Gula-gula", "Sejuk", "Pastel"], key="b1")
-    latar = st.selectbox("Latar", ["Putih", "Digital", "Kertas"], key="b2")
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Button Jana Prompt
+    if st.button("JANA PROMPT SEKARANG 💗"):
+        st.balloons()
+        st.markdown("---")
+        prompt_final = f"""
+        Bantu saya sebagai {audiens}. Jana {format_o} dengan tema {tema}. 
+        Gaya visual adalah {gaya_v} menggunakan warna {skema_w}. 
+        Nada penulisan mestilah {nada_v} dalam Bahasa Melayu.
+        """
+        st.success("Prompt Berjaya Dijana!")
+        st.code(prompt_final, language="text")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
-# --- BUTTON JANA ---
-st.markdown("<br>", unsafe_allow_html=True)
-if st.button("JANA PROMPT SEKARANG 💗"):
-    st.balloons()
-    st.markdown("---")
-    hasil = f"Buatkan {jenis} {gaya} bertema {tema} untuk {audiens}. Guna warna {warna}."
-    st.success("Prompt Berjaya!")
-    st.code(hasil, language="text")
-
-st.markdown("<br><center>Disediakan oleh Cikgu Moon - SK Telok Berembang</center>", unsafe_allow_html=True)
+# Footer
+st.markdown("<br><center><p style='color: #B27081;'>Disediakan oleh Cikgu Moon • SK Telok Berembang</p></center>", unsafe_allow_html=True)
