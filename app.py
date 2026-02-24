@@ -1,81 +1,62 @@
 import streamlit as st
 
-# Set layout wide
+# 1. Setup halaman wide
 st.set_page_config(layout="wide")
 
-# KOD CSS UNTUK TAJUK SAHAJA (FOKUS UTAMA)
+# 2. Kod CSS Fokus Warna Pastel & Tanpa Garisan Putih
 st.markdown("""
     <style>
-    /* 1. Latar Belakang Biru Laut Pastel dengan dot halus */
+    /* Latar Belakang Biru Laut Pastel */
     .stApp {
         background-color: #E0F7FA !important;
-        background-image: radial-gradient(#FFB6C1 1.5px, transparent 1.5px);
-        background-size: 40px 40px;
+        background-image: radial-gradient(#FFB6C1 1px, transparent 1px);
+        background-size: 30px 30px;
     }
 
-    /* 2. Container Header */
-    .header-container {
+    /* Container Header */
+    .header-box {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 40px;
-        gap: 40px;
+        padding: 20px;
+        gap: 30px;
     }
 
-    /* 3. TULISAN TAJUK STYLE STIKER (RE-FIXED) */
-    .bubble-title {
+    /* TULISAN TAJUK - Warna Pastel Solid (Tiada Garisan Putih) */
+    .pastel-title {
         font-family: 'Comic Sans MS', cursive, sans-serif;
-        font-size: 85px; 
-        font-weight: 900;
+        font-size: 80px;
+        font-weight: bold;
         text-align: center;
-        line-height: 1.2;
-        
-        /* Teknik Outline Putih Tebal yang tak kacau warna dalam */
-        color: white; /* Ini warna outline */
-        text-shadow: 
-            -8px -8px 0 #fff,  
-             8px -8px 0 #fff,
-            -8px  8px 0 #fff,
-             8px  8px 0 #fff,
-             10px 10px 20px rgba(0,0,0,0.1);
-        
-        position: relative;
-        display: inline-block;
-    }
-
-    /* Lapisan warna pelangi di atas outline */
-    .bubble-title span {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to right, #FFB6C1, #FFD700, #90EE90, #ADD8E6, #DDA0DD);
+        /* Warna-warni Gula-gula Pastel */
+        background: linear-gradient(to right, #FF9AA2, #FFB7B2, #FFDAC1, #E2F0CB, #B5EAD7, #C7CEEA);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        z-index: 1;
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+    
+    /* Hilangkan garisan putih bawah tajuk */
+    hr {
+        display: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
 # --- SUSUNAN HEADER ---
-st.markdown('<div class="header-container">', unsafe_allow_html=True)
-col_logo, col_text = st.columns([1, 4])
+col1, col2 = st.columns([1, 4])
 
-with col_logo:
+with col1:
     try:
         # Panggil logo.png Moon
-        st.image("logo.png", width=300) 
+        st.image("logo.png", width=300)
     except:
         st.write("🌸")
 
-with col_text:
-    # Teknik dual-layer supaya warna pelangi tak hilang lagi
-    st.markdown('''
-        <h1 class="bubble-title">
-            CHATBOT CIKGU MOON
-            <span>CHATBOT CIKGU MOON</span>
-        </h1>
-    ''', unsafe_allow_html=True)
+with col2:
+    # Tajuk warna-warni tanpa outline putih
+    st.markdown('<h1 class="pastel-title">CHATBOT CIKGU MOON</h1>', unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
-
-st.write("---")
-st.success("Bubu dah lapiskan warna pelangi tu supaya tak jadi putih kosong lagi. Cuba refresh GitHub/Streamlit Moon!")
+st.write(" ")
+st.info("Fokus: Warna pastel pelangi tanpa garisan putih. Dah nampak macam yang Moon nak?")
