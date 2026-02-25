@@ -408,3 +408,60 @@ select:focus, input:focus{
 .grid{
   gap: 18px;
 }
+/* ===== UNICORN UPGRADE FOR 4 BOX PINK ===== */
+.card{
+  background: linear-gradient(
+    180deg,
+    rgba(255, 214, 232, .75) 0%,
+    rgba(255,255,255,.72) 100%
+  );
+  border: 1px solid rgba(255, 170, 210, .55);
+  box-shadow:
+    0 22px 55px rgba(255, 160, 200, 0.22),
+    inset 0 0 0 2px rgba(255,255,255,0.55);
+}
+
+/* bunga & gula-gula */
+.card::before,
+.card::after{
+  position:absolute;
+  opacity:.22;
+  pointer-events:none;
+}
+
+.card::before{
+  content:"🌸";
+  top: 10px;
+  right: 12px;
+  font-size: 26px;
+}
+
+.card::after{
+  content:"🍬";
+  bottom: 12px;
+  left: 12px;
+  font-size: 24px;
+}
+
+/* tajuk box gradient unicorn */
+.card h3{
+  background-image: linear-gradient(
+    90deg,
+    #ff6aa2,
+    #ffd86b,
+    #67d1ff,
+    #cdb4ff
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 950;
+}
+
+/* input & select pink lembut */
+.card select,
+.card input{
+  background: rgba(255, 235, 246, .92);
+  border: 1px solid rgba(255, 170, 210, .55);
+  color: rgba(120, 30, 80, .92);
+}
