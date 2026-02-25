@@ -420,22 +420,33 @@ select:focus, input:focus{
   font-size: 24px;
 }
 
-/* 🌈 TAJUK 4 BOX – UNICORN GRADIENT (CONFIRM) */
-.grid .card h3{
-  display: inline-block !important;          /* penting */
-  margin: 0 0 10px !important;
-  font-size: 18px !important;
-  font-weight: 950 !important;
-  opacity: 1 !important;                      /* override opacity lama */
+/* 🌈 TAJUK 4 BOX – UNICORN PELANGI (CONFIRM JADI) */
+.unicorn-title{
+  display: inline-block;
+  font-weight: 950;
+  font-size: 18px;
 
-  background: linear-gradient(90deg,#ff8ecb,#ffd86b,#9be7ff,#cdb4ff) !important;
-  background-size: 200% auto !important;
+  background: linear-gradient(
+    90deg,
+    #ff6aa2,
+    #ffd86b,
+    #67d1ff,
+    #b58cff
+  );
+  background-size: 200% auto;
 
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;  /* ✅ INI yang buat jadi */
+  text-shadow: 0 1px 0 rgba(255,255,255,.85);
+}
+/* ✨ Animasi unicorn (optional) */
+.unicorn-title{
+  animation: unicornFlow 6s linear infinite;
+}
 
-  text-shadow: 0 1px 0 rgba(255,255,255,.85) !important;
+@keyframes unicornFlow{
+  to{ background-position: 200% center; }
 }
