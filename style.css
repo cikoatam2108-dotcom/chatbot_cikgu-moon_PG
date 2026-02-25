@@ -350,3 +350,7 @@ select:focus, input:focus{
   .grid{ grid-template-columns: 1fr; }
   .title{ white-space: normal; }
 }
+/* FIX: paksa semua kotak sama lebar (tak span) */
+.grid > .card{
+  grid-column: auto / span 1 !important;
+}
