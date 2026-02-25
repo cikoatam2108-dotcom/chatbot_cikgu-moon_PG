@@ -21,10 +21,9 @@
 
     <!-- 4 BOX PINK (9 MEDAN) -->
     <section class="grid">
-
       <!-- BOX 1 -->
       <article class="card">
-        <h3 class="card-title"><span class="unicorn-title">Keutamaan Gaya</span></h3>
+        <h3 class="card-title"><span class="tab-unicorn">Keutamaan Gaya</span></h3>
 
         <label class="label" for="gayaVisual">Gaya Visual (pilih satu ya)</label>
         <select id="gayaVisual">
@@ -58,13 +57,14 @@
         <select id="nada">
           <option value="">Nak formal ke santai?</option>
           <option>Formal</option><option>Santai</option><option>Pendidikan</option><option>Jenaka</option>
-          <option>Persuasif</option><option>Puitis</option><option>Penceritaan</option><option>Teknikal</option><option>Mendesak</option>
+          <option>Persuasif</option><option>Puitis</option><option>Penceritaan</option><option>Teknikal</option>
+          <option>Mendesak</option>
         </select>
       </article>
 
       <!-- BOX 2 -->
       <article class="card">
-        <h3 class="card-title"><span class="unicorn-title">Skop Kandungan</span></h3>
+        <h3 class="card-title"><span class="tab-unicorn">Skop Kandungan</span></h3>
 
         <label class="label" for="audiensInput">Sasaran Audiens</label>
         <input id="audiensInput" placeholder="Taip di sini… atau tekan pilihan comel kat bawah" />
@@ -84,14 +84,15 @@
         <label class="label" for="fokusIndustri">Fokus Industri</label>
         <select id="fokusIndustri">
           <option value="">Pilih bidang (kalau umum pun boleh)</option>
-          <option>Teknologi</option><option>Penjagaan Kesihatan</option><option>Kewangan</option><option>Pendidikan</option>
-          <option>Pemasaran</option><option>Undang-undang</option><option>Sains</option><option>Media</option><option>Pelancongan</option><option>Umum</option>
+          <option>Teknologi</option><option>Penjagaan Kesihatan</option><option>Kewangan</option>
+          <option>Pendidikan</option><option>Pemasaran</option><option>Undang-undang</option>
+          <option>Sains</option><option>Media</option><option>Pelancongan</option><option>Umum</option>
         </select>
       </article>
 
       <!-- BOX 3 -->
       <article class="card">
-        <h3 class="card-title"><span class="unicorn-title">Tema</span></h3>
+        <h3 class="card-title"><span class="tab-unicorn">Tema</span></h3>
 
         <label class="label" for="temaInput">Tema (Pilihan)</label>
         <input id="temaInput" placeholder="Taip di sini… atau pilih di bawah (comel-comel 💗)" />
@@ -122,10 +123,11 @@
 
       <!-- BOX 4 -->
       <article class="card">
-        <h3 class="card-title"><span class="unicorn-title">Butiran Infografik</span></h3>
+        <h3 class="card-title"><span class="tab-unicorn">Butiran Infografik</span></h3>
 
         <label class="label" for="skemaWarnaInput">Skema Warna</label>
         <input id="skemaWarnaInput" placeholder="Contoh: colorful / pastel / monokrom…" />
+
         <div class="chips" id="warnaChips" aria-label="Pilihan skema warna">
           <button class="chip" data-value="Gula-gula" type="button">🍬 Gula-gula</button>
           <button class="chip" data-value="Berwarna-warni" type="button">🎨 Berwarna-warni</button>
@@ -157,9 +159,10 @@
         <label class="label" for="fontSelect">Keutamaan Fon</label>
         <select id="fontSelect">
           <option value="">Cikgu nak fon yang comel atau moden?</option>
-          <option>Krayon</option><option>Paparan (Tebal)</option><option>Geometrik (Bersih)</option><option>Tulisan Tangan</option>
-          <option>Marker</option><option>Monospace (Teknologi)</option><option>Pensil</option><option>Bulat (Mesra)</option>
-          <option>Sans-serif (Moden)</option><option>Skrip (Elegan)</option><option>Serif (Klasik)</option><option>Slab Serif (Kuat)</option>
+          <option>Krayon</option><option>Paparan (Tebal)</option><option>Geometrik (Bersih)</option>
+          <option>Tulisan Tangan</option><option>Marker</option><option>Monospace (Teknologi)</option>
+          <option>Pensil</option><option>Bulat (Mesra)</option><option>Sans-serif (Moden)</option>
+          <option>Skrip (Elegan)</option><option>Serif (Klasik)</option><option>Slab Serif (Kuat)</option>
         </select>
       </article>
     </section>
@@ -170,12 +173,17 @@
       <div class="hint" id="hintText">Cikgu isi semua 9 pilihan dulu ya, baru Cikgu Moon boleh jana ✨</div>
     </section>
 
-    <!-- PROMPT BOX -->
+    <!-- PROMPT BOX BAWAH -->
     <section class="moon-prompt-section">
       <div class="moon-prompt-card">
         <h2 class="moon-prompt-title">🌸 Prompt Dijana 🌸</h2>
 
-        <textarea class="moon-prompt-box" placeholder="Prompt cantik dari Cikgu Moon akan muncul di sini… 💗" readonly id="output"></textarea>
+        <textarea
+          class="moon-prompt-box"
+          placeholder="Prompt cantik dari Cikgu Moon akan muncul di sini… 💗"
+          readonly
+          id="output"
+        ></textarea>
 
         <div class="moon-prompt-actions">
           <button id="btnTukar" class="moon-btn secondary" type="button">🔄 Tukar</button>
@@ -185,7 +193,6 @@
         <div class="moon-toast" id="toast" aria-live="polite"></div>
       </div>
     </section>
-
   </main>
 
   <script src="script.js?v=2026-02-25-1"></script>
