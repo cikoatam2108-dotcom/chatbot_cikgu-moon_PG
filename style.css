@@ -443,25 +443,35 @@ select:focus, input:focus{
   font-size: 24px;
 }
 
-/* tajuk box gradient unicorn */
+/* ===== TAJUK 4 BOX: UNICORN GRADIENT ===== */
 .card h3{
-  background-image: linear-gradient(
+  font-weight: 950;
+  font-size: 18px;
+  margin-bottom: 14px;
+  display: inline-block;
+
+  /* gradient pelangi macam button Salin Prompt */
+  background: linear-gradient(
     90deg,
-    #ff6aa2,
+    #ff8ecb,
     #ffd86b,
-    #67d1ff,
+    #9be7ff,
     #cdb4ff
   );
+  background-size: 200% auto;
+
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-weight: 950;
+
+  /* efek lembut */
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  animation: unicornFlow 6s linear infinite;
 }
 
-/* input & select pink lembut */
-.card select,
-.card input{
-  background: rgba(255, 235, 246, .92);
-  border: 1px solid rgba(255, 170, 210, .55);
-  color: rgba(120, 30, 80, .92);
+/* animasi bergerak perlahan (optional tapi sweet) */
+@keyframes unicornFlow{
+  to{
+    background-position: 200% center;
+  }
 }
