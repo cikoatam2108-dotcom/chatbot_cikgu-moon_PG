@@ -1,12 +1,13 @@
 :root{
   --bg: #eaf6ff;
-  --card: rgba(255, 210, 225, .55);
-  --card2: rgba(255, 255, 255, .62);
-  --stroke: rgba(180, 120, 160, .35);
   --text: #3b2b3a;
   --muted: rgba(59, 43, 58, .68);
   --shadow: 0 18px 45px rgba(40, 20, 40, .12);
   --radius: 18px;
+
+  --cardA: rgba(255, 214, 232, .78);
+  --cardB: rgba(255,255,255,.72);
+  --stroke: rgba(255, 170, 210, .55);
 }
 
 *{ box-sizing:border-box; }
@@ -43,10 +44,7 @@ body{
 }
 
 /* HERO */
-.hero{
-  text-align:center;
-  margin-bottom: 14px;
-}
+.hero{ text-align:center; margin-bottom: 14px; }
 
 .hero-title{
   display:flex;
@@ -90,39 +88,70 @@ body{
 .grid{
   display:grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 18px;
   margin-top: 18px;
 }
 
 .card{
-  background: linear-gradient(180deg, var(--card) 0%, var(--card2) 100%);
+  background: linear-gradient(180deg, var(--cardA) 0%, var(--cardB) 100%);
   border: 1px solid var(--stroke);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow:
+    0 22px 55px rgba(255, 160, 200, 0.22),
+    inset 0 0 0 2px rgba(255,255,255,0.55);
   padding: 14px 14px 16px;
-  backdrop-filter: blur(10px);
   min-height: 300px;
+  position:relative;
+  overflow:hidden;
 }
+
+.card::before,
+.card::after{
+  position:absolute;
+  opacity:.22;
+  pointer-events:none;
+}
+
+.card::before{
+  content:"🌸";
+  top: 10px;
+  right: 12px;
+  font-size: 26px;
+}
+
+.card::after{
+  content:"🍬";
+  bottom: 12px;
+  left: 12px;
+  font-size: 24px;
+}
+
+.card-title{ margin: 0 0 10px; }
 
 .label{
   display:block;
   font-size: 12px;
-  opacity:.85;
   margin: 12px 0 6px;
+  color: rgba(150, 55, 105, .92);
+  font-weight: 800;
 }
 
 select, input{
   width: 100%;
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(120, 60, 100, .18);
-  background: rgba(255,255,255,.80);
+  border: 1px solid rgba(255, 170, 210, .55);
+  background: rgba(255, 235, 246, .92);
   outline: none;
+  color: rgba(120, 30, 80, .92);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.04);
 }
 
 select:focus, input:focus{
-  border-color: rgba(255, 100, 170, .55);
-  box-shadow: 0 0 0 4px rgba(255, 130, 190, .18);
+  border-color: rgba(255, 120, 180, .85);
+  box-shadow:
+    0 0 0 4px rgba(255, 130, 190, .18),
+    0 0 0 8px rgba(160, 220, 255, .12);
 }
 
 .chips{
@@ -133,21 +162,23 @@ select:focus, input:focus{
 }
 
 .chip{
-  border: 1px solid rgba(120, 60, 100, .18);
-  background: rgba(255,255,255,.76);
+  border: 1px solid rgba(255, 170, 210, .55);
+  background: rgba(255, 245, 250, .92);
   padding: 8px 10px;
   border-radius: 999px;
   cursor:pointer;
   font-size: 12px;
   user-select:none;
+  color: rgba(120, 30, 80, .85);
 }
 
 .chip.is-active{
-  background: rgba(255, 120, 180, .22);
-  border-color: rgba(255, 120, 180, .65);
+  border-color: rgba(255, 120, 180, .95);
+  background: linear-gradient(90deg, rgba(255,154,213,.55), rgba(255,216,107,.45), rgba(143,230,255,.45), rgba(205,180,255,.55));
+  color: rgba(90, 20, 75, .95);
+  box-shadow: 0 8px 18px rgba(180, 90, 160, .22);
 }
 
-/* chipgrid for layout */
 .chipgrid{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -188,19 +219,7 @@ select:focus, input:focus{
   max-width: 70ch;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1100px){
-  .grid{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px){
-  .grid{ grid-template-columns: 1fr; }
-  .title{ white-space: normal; }
-}
-@media (max-width: 980px){
-  .chipgrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-
-/* ===== PROMPT BOX BAWAH PAGE (PINK CUTE + BUNGA + UNICORN) ===== */
+/* ===== PROMPT BOX ===== */
 .moon-prompt-section{
   margin: 60px auto 20px;
   padding: 0 6px;
@@ -229,17 +248,8 @@ select:focus, input:focus{
   pointer-events:none;
 }
 
-.moon-prompt-card::before{
-  content:"🌸";
-  top: 14px;
-  left: 16px;
-}
-
-.moon-prompt-card::after{
-  content:"🌼";
-  bottom: 16px;
-  right: 18px;
-}
+.moon-prompt-card::before{ content:"🌸"; top: 14px; left: 16px; }
+.moon-prompt-card::after{ content:"🌼"; bottom: 16px; right: 18px; }
 
 .moon-prompt-title{
   text-align:center;
@@ -306,166 +316,27 @@ select:focus, input:focus{
   color: rgba(59,43,58,.78);
   min-height: 16px;
 }
-/* ===== UPGRADE 4 BOX PINK: Unicorn title + Sweet inputs ===== */
 
-/* card jadi lebih cute */
-.card{
-  background: linear-gradient(180deg, rgba(255, 214, 232, .72) 0%, rgba(255,255,255,.70) 100%);
-  border: 1px solid rgba(255, 170, 210, .55);
-  position: relative;
-  overflow: hidden;
-}
-
-/* bunga + gula-gula (auto) */
-.card::before,
-.card::after{
-  position:absolute;
-  opacity:.22;
-  pointer-events:none;
-  filter: blur(.2px);
-}
-
-.card::before{
-  content:"🌸";
-  top: 10px;
-  right: 12px;
-  font-size: 26px;
-}
-
-.card::after{
-  content:"🍬";
-  bottom: 12px;
-  left: 12px;
-  font-size: 24px;
-}
-
-/* label jadi pink lembut */
-.label{
-  color: rgba(150, 55, 105, .92);
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-
-/* input & select jadi pink lembut */
-select, input{
-  background: rgba(255, 235, 246, .92);
-  border: 1px solid rgba(255, 170, 210, .55);
-  color: rgba(120, 30, 80, .92);
-  box-shadow: inset 0 2px 6px rgba(0,0,0,.04);
-}
-
-select::placeholder, input::placeholder{
-  color: rgba(150, 70, 110, .55);
-}
-
-/* fokus jadi glow unicorn */
-select:focus, input:focus{
-  border-color: rgba(255, 120, 180, .85);
-  box-shadow:
-    0 0 0 4px rgba(255, 130, 190, .18),
-    0 0 0 8px rgba(160, 220, 255, .12);
-}
-
-/* chip lebih cute */
-.chip{
-  background: rgba(255, 245, 250, .92);
-  border: 1px solid rgba(255, 170, 210, .55);
-  color: rgba(120, 30, 80, .85);
-}
-
-/* chip aktif = unicorn */
-.chip.is-active{
-  border-color: rgba(255, 120, 180, .95);
-  background: linear-gradient(90deg, rgba(255,154,213,.55), rgba(255,216,107,.45), rgba(143,230,255,.45), rgba(205,180,255,.55));
-  color: rgba(90, 20, 75, .95);
-  box-shadow: 0 8px 18px rgba(180, 90, 160, .22);
-}
-
-/* grid spacing rasa lebih premium */
-.grid{
-  gap: 18px;
-}
-/* ===== UNICORN UPGRADE FOR 4 BOX PINK ===== */
-.card{
-  background: linear-gradient(
-    180deg,
-    rgba(255, 214, 232, .75) 0%,
-    rgba(255,255,255,.72) 100%
-  );
-  border: 1px solid rgba(255, 170, 210, .55);
-  box-shadow:
-    0 22px 55px rgba(255, 160, 200, 0.22),
-    inset 0 0 0 2px rgba(255,255,255,0.55);
-}
-
-/* bunga & gula-gula */
-.card::before,
-.card::after{
-  position:absolute;
-  opacity:.22;
-  pointer-events:none;
-}
-
-.card::before{
-  content:"🌸";
-  top: 10px;
-  right: 12px;
-  font-size: 26px;
-}
-
-.card::after{
-  content:"🍬";
-  bottom: 12px;
-  left: 12px;
-  font-size: 24px;
-}
-
-/* 🌈 TAJUK 4 BOX – UNICORN PELANGI (CONFIRM JADI) */
+/* ===== UNICORN TITLE FINAL (SATU KALI SAHAJA) ===== */
 .unicorn-title{
-  display: inline-block;
-  font-weight: 950;
-  font-size: 18px;
-
-  background: linear-gradient(
-    90deg,
-    #ff6aa2,
-    #ffd86b,
-    #67d1ff,
-    #b58cff
-  );
-  background-size: 200% auto;
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  display:inline-block;
+  font-weight:950;
+  font-size:18px;
+  background: linear-gradient(90deg,#ff6aa2,#ffd86b,#67d1ff,#b58cff);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
   -webkit-text-fill-color: transparent;
-
+  color: transparent;
   text-shadow: 0 1px 0 rgba(255,255,255,.85);
-}
-/* ✨ Animasi unicorn (optional) */
-.unicorn-title{
   animation: unicornFlow 6s linear infinite;
 }
+@keyframes unicornFlow{ to{ background-position: 200% center; } }
 
-@keyframes unicornFlow{
-  to{ background-position: 200% center; }
-}
-.unicorn-title{
-  font-weight: 950;
-  font-size: 18px;
-  display: inline-block;
-  position: relative;
-  background: linear-gradient(90deg,#ff6aa2,#ffd86b,#67d1ff,#b58cff);
-  background-size: 200% auto;
-  color: #ff6aa2; /* fallback kalau clip tak jalan */
-}
-
-.unicorn-title{
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.unicorn-title{ color: red !important; }
-.unicorn-title{
-  -webkit-text-fill-color: red !important;
-  color: red !important;
+/* RESPONSIVE */
+@media (max-width: 1100px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 980px){ .chipgrid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px){
+  .grid{ grid-template-columns: 1fr; }
+  .title{ white-space: normal; }
 }
