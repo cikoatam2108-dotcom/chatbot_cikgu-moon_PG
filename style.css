@@ -53,10 +53,10 @@ body{
 }
 
 .hero-img{
-  height: clamp(64px, 8vw, 110px);
-  width:auto;
-  flex-shrink:0;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,.15));
+  height: clamp(90px, 12vw, 160px); /* BESAR */
+  width: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
 }
 
 .title{
