@@ -4,10 +4,6 @@
   --muted: rgba(59, 43, 58, .68);
   --shadow: 0 18px 45px rgba(40, 20, 40, .12);
   --radius: 18px;
-
-  --cardA: rgba(255, 214, 232, .78);
-  --cardB: rgba(255,255,255,.72);
-  --stroke: rgba(255, 170, 210, .55);
 }
 
 *{ box-sizing:border-box; }
@@ -44,7 +40,10 @@ body{
 }
 
 /* HERO */
-.hero{ text-align:center; margin-bottom: 14px; }
+.hero{
+  text-align:center;
+  margin-bottom: 14px;
+}
 
 .hero-title{
   display:flex;
@@ -93,16 +92,21 @@ body{
 }
 
 .card{
-  background: linear-gradient(180deg, var(--cardA) 0%, var(--cardB) 100%);
-  border: 1px solid var(--stroke);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 214, 232, .75) 0%,
+    rgba(255,255,255,.72) 100%
+  );
+  border: 1px solid rgba(255, 170, 210, .55);
   border-radius: var(--radius);
   box-shadow:
     0 22px 55px rgba(255, 160, 200, 0.22),
     inset 0 0 0 2px rgba(255,255,255,0.55);
   padding: 14px 14px 16px;
+  backdrop-filter: blur(10px);
   min-height: 300px;
-  position:relative;
-  overflow:hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .card::before,
@@ -126,7 +130,25 @@ body{
   font-size: 24px;
 }
 
-.card-title{ margin: 0 0 10px; }
+/* TAJUK TAB (pelangi unicorn + teks pink) */
+.card-title{
+  margin: 0 0 12px;
+}
+
+.tab-unicorn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff);
+  color: #d63384;                 /* teks pink */
+  font-size: 16px;
+  font-weight: 900;
+  box-shadow:
+    0 10px 24px rgba(180, 90, 160, 0.25),
+    inset 0 0 0 2px rgba(255,255,255,0.7);
+}
 
 .label{
   display:block;
@@ -134,6 +156,7 @@ body{
   margin: 12px 0 6px;
   color: rgba(150, 55, 105, .92);
   font-weight: 800;
+  letter-spacing: .2px;
 }
 
 select, input{
@@ -219,7 +242,7 @@ select:focus, input:focus{
   max-width: 70ch;
 }
 
-/* ===== PROMPT BOX ===== */
+/* PROMPT BOX BAWAH */
 .moon-prompt-section{
   margin: 60px auto 20px;
   padding: 0 6px;
@@ -244,7 +267,6 @@ select:focus, input:focus{
   position:absolute;
   font-size: 42px;
   opacity:.23;
-  filter: blur(.2px);
   pointer-events:none;
 }
 
@@ -294,7 +316,7 @@ select:focus, input:focus{
 
 .moon-btn.primary{
   background: linear-gradient(90deg, #ff9ad5, #ffd86b, #8fe6ff, #cdb4ff);
-  color: #5a2150;
+  color: #d63384;  /* teks pink macam Cikgu nak */
   box-shadow: 0 10px 24px rgba(180, 90, 160, 0.45);
 }
 
@@ -317,25 +339,13 @@ select:focus, input:focus{
   min-height: 16px;
 }
 
-/* ===== UNICORN TITLE FINAL (SATU KALI SAHAJA) ===== */
-.unicorn-title{
-  display:inline-block;
-  font-weight:950;
-  font-size:18px;
-  background: linear-gradient(90deg,#ff6aa2,#ffd86b,#67d1ff,#b58cff);
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 1px 0 rgba(255,255,255,.85);
-  animation: unicornFlow 6s linear infinite;
-}
-@keyframes unicornFlow{ to{ background-position: 200% center; } }
-
 /* RESPONSIVE */
-@media (max-width: 1100px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 980px){ .chipgrid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 1100px){
+  .grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 980px){
+  .chipgrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
 @media (max-width: 560px){
   .grid{ grid-template-columns: 1fr; }
   .title{ white-space: normal; }
