@@ -104,13 +104,6 @@ body{
   min-height: 300px;
 }
 
-.card h3{
-  margin: 0 0 10px;
-  font-size: 16px;
-  font-weight: 900;
-  opacity: .92;
-}
-
 .label{
   display:block;
   font-size: 12px;
@@ -427,21 +420,22 @@ select:focus, input:focus{
   font-size: 24px;
 }
 
-/* 🌈 TAJUK 4 BOX – UNICORN GRADIENT (FINAL) */
+/* 🌈 TAJUK 4 BOX – UNICORN GRADIENT (CONFIRM) */
 .grid .card h3{
-  background: linear-gradient(
-    90deg,
-    #ff8ecb,
-    #ffd86b,
-    #9be7ff,
-    #cdb4ff
-  ) !important;
+  display: inline-block !important;          /* penting */
+  margin: 0 0 10px !important;
+  font-size: 18px !important;
+  font-weight: 950 !important;
+  opacity: 1 !important;                      /* override opacity lama */
+
+  background: linear-gradient(90deg,#ff8ecb,#ffd86b,#9be7ff,#cdb4ff) !important;
   background-size: 200% auto !important;
 
   -webkit-background-clip: text !important;
   background-clip: text !important;
-  color: transparent !important;
 
-  font-weight: 950 !important;
-  text-shadow: 0 1px 0 rgba(255,255,255,.8) !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;  /* ✅ INI yang buat jadi */
+
+  text-shadow: 0 1px 0 rgba(255,255,255,.85) !important;
 }
