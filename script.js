@@ -1,163 +1,203 @@
-// ========= Helpers =========
+// ===== Helpers =====
 const $ = (id) => document.getElementById(id);
 
-function setSingleSelect(containerEl, stateKey, state) {
-  containerEl.addEventListener("click", (e) => {
-    const btn = e.target.closest(".chip");
-    if (!btn) return;
-
-    // single select: clear all
-    containerEl.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
-    btn.classList.add("is-active");
-
-    state[stateKey] = btn.dataset.value || btn.textContent.trim();
-    updateGate(state);
-  });
-}
-
-function setMultiSelect(containerEl, stateKey, state) {
-  containerEl.addEventListener("click", (e) => {
-    const btn = e.target.closest(".chip");
-    if (!btn) return;
-
-    btn.classList.toggle("is-active");
-    const selected = [...containerEl.querySelectorAll(".chip.is-active")]
-      .map(b => b.dataset.value || b.textContent.trim());
-
-    state[stateKey] = selected;
-    updateGate(state);
-  });
-}
-
-function normalizeList(arr) {
-  if (!arr) return [];
-  return arr.map(x => String(x).replace(/\s+/g, " ").trim()).filter(Boolean);
-}
-
-function updateGate(state){
-  const required = [
-    ["Gaya Visual", state.gayaVisual],
-    ["Lajur atau Grid", state.layout],
-    ["Nada", state.nada],
-    ["Sasaran Audiens", (state.audiensText || normalizeList(state.audiens).join(", "))],
-    ["Tema (Pilihan)", (state.temaText || normalizeList(state.tema).join(", "))],
-    ["Skema Warna", (state.warnaText || normalizeList(state.warna).join(", "))],
-    ["Gaya Latar Belakang", (state.latarText || normalizeList(state.latarWarna).join(", ") || normalizeList(state.latarTekstur).join(", "))],
-    ["Fokus Industri", state.fokusIndustri],
-    ["Font", state.font]
-  ];
-
-  const missing = required.filter(([,v]) => !String(v || "").trim()).map(([k]) => k);
-
-  const btn = $("btnJana");
-  const hint = $("hintText");
-
-  if (missing.length === 0){
-    btn.disabled = false;
-    hint.textContent = "Okayyy ✨ tekan butang jana, Cikgu Moon buatkan prompt cantik!";
-  } else {
-    btn.disabled = true;
-    hint.textContent = `Alamak 😅 belum cukup lagi. Lengkapkan dulu ya: ${missing.join(", ")} ✨`;
-  }
-}
-
-function buildPrompt(state){
-  const gaya = state.gayaVisual;
-  const layout = state.layout;
-  const nada = state.nada;
-  const audiens = (state.audiensText || normalizeList(state.audiens).join(", "));
-  const tema = (state.temaText || normalizeList(state.tema).join(", "));
-  const warna = (state.warnaText || normalizeList(state.warna).join(", "));
-  const latar = [
-    state.latarText,
-    ...normalizeList(state.latarWarna),
-    ...normalizeList(state.latarTekstur)
-  ].filter(Boolean).join(", ");
-  const fokus = state.fokusIndustri;
-  const font = state.font;
-
-  return [
-    `Hasilkan infografik yang padat dan mudah faham.`,
-    `Gaya visual: ${gaya}.`,
-    `Susun atur: ${layout}.`,
-    `Skema warna: ${warna}.`,
-    `Fon: ${font}.`,
-    `Latar belakang: ${latar}.`,
-    `Nada penulisan: ${nada}.`,
-    `Sasaran audiens: ${audiens}.`,
-    tema ? `Tema pilihan: ${tema}.` : ``,
-    `Fokus industri: ${fokus}.`,
-    `Infografik perlu seimbang, jelas, kemas, dan menarik (Cikgu Moon tone: comel + profesional).`
-  ].filter(Boolean).join(" ");
-}
-
-// ========= App =========
 const state = {
   gayaVisual: "",
   layout: "",
   nada: "",
   audiens: [],
-  audiensText: "",
   fokusIndustri: "",
   tema: [],
-  temaText: "",
-  warna: [],
-  warnaText: "",
-  latarText: "",
-  latarWarna: [],
-  latarTekstur: [],
-  font: ""
+  skemaWarna: [],
+  latar: [],
+  tekstur: [],
+  font: "",
 };
 
-// Dropdowns
-$("gayaVisual").addEventListener("change", (e) => { state.gayaVisual = e.target.value; updateGate(state); });
-$("nada").addEventListener("change", (e) => { state.nada = e.target.value; updateGate(state); });
-$("fokusIndustri").addEventListener("change", (e) => { state.fokusIndustri = e.target.value; updateGate(state); });
-$("fontSelect").addEventListener("change", (e) => { state.font = e.target.value; updateGate(state); });
+function uniq(arr){ return Array.from(new Set(arr.filter(Boolean))); }
 
-// Inputs
-$("audiensInput").addEventListener("input", (e) => { state.audiensText = e.target.value.trim(); updateGate(state); });
-$("temaInput").addEventListener("input", (e) => { state.temaText = e.target.value.trim(); updateGate(state); });
-$("skemaWarnaInput").addEventListener("input", (e) => { state.warnaText = e.target.value.trim(); updateGate(state); });
-$("latarInput").addEventListener("input", (e) => { state.latarText = e.target.value.trim(); updateGate(state); });
+function chipSingle(containerId, onPick){
+  const wrap = $(containerId);
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if(!btn) return;
+    wrap.querySelectorAll(".chip").forEach(b => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    onPick(btn.dataset.value);
+    validate();
+  });
+}
 
-// Chips
-setSingleSelect($("layoutChips"), "layout", state);
-setMultiSelect($("audiensChips"), "audiens", state);
-setMultiSelect($("temaChips"), "tema", state);
-setMultiSelect($("warnaChips"), "warna", state);
-setSingleSelect($("latarWarnaChips"), "latarWarna", state);     // single select latar warna
-setMultiSelect($("latarTeksturChips"), "latarTekstur", state);  // multi select tekstur
+function chipMulti(containerId, arrRef){
+  const wrap = $(containerId);
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if(!btn) return;
 
-// Override single select handler for latarWarnaChips to store as array with 1 item
-$("latarWarnaChips").addEventListener("click", () => {
-  const active = $("latarWarnaChips").querySelector(".chip.is-active");
-  state.latarWarna = active ? [active.dataset.value || active.textContent.trim()] : [];
-  updateGate(state);
+    const v = btn.dataset.value;
+    const isActive = btn.classList.toggle("is-active");
+    if(isActive) arrRef.push(v);
+    else {
+      const idx = arrRef.indexOf(v);
+      if(idx >= 0) arrRef.splice(idx,1);
+    }
+    // keep unique
+    const u = uniq(arrRef);
+    arrRef.length = 0;
+    arrRef.push(...u);
+
+    validate();
+  });
+}
+
+// ===== Bind inputs =====
+$("gayaVisual").addEventListener("change", (e) => { state.gayaVisual = e.target.value.trim(); validate(); });
+$("nada").addEventListener("change", (e) => { state.nada = e.target.value.trim(); validate(); });
+$("fokusIndustri").addEventListener("change", (e) => { state.fokusIndustri = e.target.value.trim(); validate(); });
+$("fontSelect").addEventListener("change", (e) => { state.font = e.target.value.trim(); validate(); });
+
+$("audiensInput").addEventListener("input", (e) => {
+  const v = e.target.value.trim();
+  state.audiens = v ? uniq(v.split(",").map(s => s.trim())) : [];
+  validate();
 });
 
-// Buttons
+$("temaInput").addEventListener("input", (e) => {
+  const v = e.target.value.trim();
+  state.tema = v ? uniq(v.split(",").map(s => s.trim())) : [];
+  validate();
+});
+
+$("skemaWarnaInput").addEventListener("input", (e) => {
+  // let user type extra, but still require at least 1 chip/type
+  const v = e.target.value.trim();
+  // store typed as 1 item if not empty
+  // (chips will add more)
+  state._warnaTyped = v;
+  validate();
+});
+
+$("latarInput").addEventListener("input", (e) => {
+  const v = e.target.value.trim();
+  state._latarTyped = v;
+  validate();
+});
+
+// ===== Chips wiring =====
+chipSingle("layoutChips", (v) => state.layout = v);
+
+chipMulti("audiensChips", state.audiens);
+chipMulti("temaChips", state.tema);
+chipMulti("warnaChips", state.skemaWarna);
+
+// latar: chips 2 kumpulan (warna + tekstur) — gabungkan dalam output
+chipMulti("latarWarnaChips", state.latar);
+chipMulti("latarTeksturChips", state.tekstur);
+
+// ===== Validate (9 medan wajib) =====
+const requiredFields = [
+  { key: "gayaVisual", label: "Gaya Visual" },
+  { key: "layout", label: "Lajur atau Grid" },
+  { key: "nada", label: "Nada" },
+  { key: "audiens", label: "Sasaran Audiens" },
+  { key: "fokusIndustri", label: "Fokus Industri" },
+  { key: "tema", label: "Tema (Pilihan)" },
+  { key: "skemaWarna", label: "Skema Warna" },
+  { key: "latar", label: "Gaya Latar Belakang" },
+  { key: "font", label: "Font" },
+];
+
+function isFilled(field){
+  if(Array.isArray(state[field])) return state[field].length > 0;
+  return String(state[field] || "").trim().length > 0;
+}
+
+function validate(){
+  // allow typed skema warna/latar count as filled if user type
+  const warnaFilled = state.skemaWarna.length > 0 || (state._warnaTyped && state._warnaTyped.length > 0);
+  const latarFilled = state.latar.length > 0 || state.tekstur.length > 0 || (state._latarTyped && state._latarTyped.length > 0);
+
+  const missing = [];
+  for(const f of requiredFields){
+    if(f.key === "skemaWarna"){
+      if(!warnaFilled) missing.push(f.label);
+      continue;
+    }
+    if(f.key === "latar"){
+      if(!latarFilled) missing.push(f.label);
+      continue;
+    }
+    if(!isFilled(f.key)) missing.push(f.label);
+  }
+
+  const ok = missing.length === 0;
+  $("btnJana").disabled = !ok;
+
+  $("hintText").textContent = ok
+    ? "Dah cukup! Tekan JANA ya ✨"
+    : `Alamak 😅 belum cukup lagi. Lengkapkan dulu ya: ${missing.join(", ")} ✨`;
+
+  return ok;
+}
+
+// ===== Prompt generator =====
+function buildPrompt(){
+  const audiens = uniq(state.audiens).join(", ");
+  const tema = uniq(state.tema).join(", ");
+  const warna = uniq([...(state.skemaWarna || []), state._warnaTyped].filter(Boolean)).join(", ");
+  const latar = uniq([...(state.latar || []), ...(state.tekstur || []), state._latarTyped].filter(Boolean)).join(", ");
+
+  const temaLine = tema ? `Masukkan elemen tema: ${tema}. ` : "";
+
+  return (
+`Hasilkan infografik yang padat dan mudah difahami. ` +
+`Gaya visual: ${state.gayaVisual}. ` +
+`Susun atur: ${state.layout}. ` +
+`Skema warna: ${warna}. ` +
+`Keutamaan fon: ${state.font}. ` +
+`Gaya latar belakang: ${latar}. ` +
+`Nada penulisan: ${state.nada}. ` +
+`Sasaran audiens: ${audiens}. ` +
+`Fokus industri: ${state.fokusIndustri}. ` +
+temaLine +
+`Pastikan susun atur seimbang, tajuk jelas, poin ringkas, ikon/ilustrasi comel, dan hasil nampak kemas serta profesional dengan vibe Cikgu Moon tone.`
+  );
+}
+
 $("btnJana").addEventListener("click", () => {
-  $("output").value = buildPrompt(state);
-  $("toast").textContent = "Siap! Prompt dah dijana 🌸";
+  if(!validate()) return;
+  $("output").value = buildPrompt();
+  toast("Dah siap! Prompt comel masuk kat bawah 💗");
+});
+
+$("btnTukar").addEventListener("click", () => {
+  $("output").value = buildPrompt();
+  toast("Dah tukar ayat sikit ✨");
 });
 
 $("btnSalin").addEventListener("click", async () => {
   const text = $("output").value.trim();
-  if (!text){ $("toast").textContent = "Belum ada prompt lagi 😅"; return; }
-
+  if(!text){
+    toast("Belum ada prompt lagi 🥺 Tekan JANA dulu ya.");
+    return;
+  }
   try{
     await navigator.clipboard.writeText(text);
-    $("toast").textContent = "Berjaya salin! 🦄✨";
-  } catch {
-    $("toast").textContent = "Tak boleh auto-salin 😭 (Cikgu copy manual je ya)";
+    toast("Dah salin! 🦄💗");
+  }catch{
+    // fallback
+    $("output").select();
+    document.execCommand("copy");
+    toast("Dah salin (cara lama) 💗");
   }
 });
 
-$("btnTukar").addEventListener("click", () => {
-  $("output").value = "";
-  $("toast").textContent = "Okay, kita tukar semula 🌷";
-});
+let tmr;
+function toast(msg){
+  clearTimeout(tmr);
+  $("toast").textContent = msg;
+  tmr = setTimeout(() => $("toast").textContent = "", 2200);
+}
 
-// init
-updateGate(state);
+// initial
+validate();
