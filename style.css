@@ -465,3 +465,7 @@ select:focus, input:focus{
   -webkit-text-fill-color: transparent;
 }
 .unicorn-title{ color: red !important; }
+.unicorn-title{
+  -webkit-text-fill-color: red !important;
+  color: red !important;
+}
