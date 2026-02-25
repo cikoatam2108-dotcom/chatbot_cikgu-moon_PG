@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chatbot Cikgu Moon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-doodles" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-title">
+        <!-- Tukar imej ni ikut Cikgu -->
+        <img src="assets/logo.png" alt="Cikgu Moon" class="hero-img" />
+        <h1 class="title">CHATBOT CIKGU MOON</h1>
+      </div>
+      <p class="subtitle">Jom kita jana prompt infografik yang comel, kemas & senang faham ✨</p>
+    </header>
+
+    <!-- 4 BOX PINK (9 MEDAN) -->
+    <section class="grid">
+      <!-- BOX 1 -->
+      <article class="card">
+        <h3>Keutamaan Gaya</h3>
+
+        <label class="label" for="gayaVisual">Gaya Visual (pilih satu ya)</label>
+        <select id="gayaVisual">
+          <option value="">Pilih gaya yang Cikgu suka…</option>
+          <option>3D</option>
+          <option>Akademik</option>
+          <option>Anime</option>
+          <option>Bersejarah</option>
+          <option>Buku Pop-Up</option>
+          <option>Ceria</option>
+          <option>Chibi</option>
+          <option>Diorama</option>
+          <option>Futuristik</option>
+          <option>Ilustrasi</option>
+          <option>Komik</option>
+          <option>Korporat</option>
+          <option>Minimalis</option>
+          <option>Nota Lakaran</option>
+          <option>Pelan Biru</option>
+          <option>Pelekat</option>
+          <option>Peta Minda</option>
+          <option>Potongan Kertas</option>
+          <option>Profesional</option>
+          <option>Retro</option>
+          <option>Steampunk</option>
+          <option>Ukiyo-e</option>
+        </select>
+
+        <label class="label">Susun Atur (lajur / grid)</label>
+        <div class="chipgrid single" id="layoutChips" aria-label="Lajur atau Grid">
+          <button class="chip" data-value="Satu Lajur" type="button">Satu Lajur</button>
+          <button class="chip" data-value="2 Lajur" type="button">2 Lajur</button>
+          <button class="chip" data-value="3 Lajur" type="button">3 Lajur</button>
+          <button class="chip" data-value="4 Lajur" type="button">4 Lajur</button>
+
+          <button class="chip" data-value="Grid Panel 2×2" type="button">Grid 2×2</button>
+          <button class="chip" data-value="Grid Panel 3×2" type="button">Grid 3×2</button>
+          <button class="chip" data-value="Grid Panel 3×3" type="button">Grid 3×3</button>
+          <button class="chip" data-value="Grid Panel 4×2" type="button">Grid 4×2</button>
+          <button class="chip" data-value="Grid Panel 4×3" type="button">Grid 4×3</button>
+
+          <button class="chip" data-value="Asimetrik" type="button">Asimetrik</button>
+          <button class="chip" data-value="Bentuk Bebas" type="button">Bentuk Bebas</button>
+        </div>
+
+        <label class="label" for="nada">Nada Penulisan</label>
+        <select id="nada">
+          <option value="">Nak formal ke santai?</option>
+          <option>Formal</option>
+          <option>Santai</option>
+          <option>Pendidikan</option>
+          <option>Jenaka</option>
+          <option>Persuasif</option>
+          <option>Puitis</option>
+          <option>Penceritaan</option>
+          <option>Teknikal</option>
+          <option>Mendesak</option>
+        </select>
+      </article>
+
+      <!-- BOX 2 -->
+      <article class="card">
+        <h3>Skop Kandungan</h3>
+
+        <label class="label" for="audiensInput">Sasaran Audiens</label>
+        <input id="audiensInput" placeholder="Taip di sini… atau tekan pilihan comel kat bawah" />
+
+        <div class="chips" id="audiensChips" aria-label="Pilihan audiens">
+          <button class="chip" data-value="Pemula" type="button">Pemula</button>
+          <button class="chip" data-value="Profesional" type="button">Profesional</button>
+          <button class="chip" data-value="Pelajar" type="button">Pelajar</button>
+          <button class="chip" data-value="Guru" type="button">Guru</button>
+          <button class="chip" data-value="Kanak-kanak" type="button">Kanak-kanak</button>
+          <button class="chip" data-value="Remaja" type="button">Remaja</button>
+          <button class="chip" data-value="Orang Awam" type="button">Orang Awam</button>
+          <button class="chip" data-value="Eksekutif" type="button">Eksekutif</button>
+          <button class="chip" data-value="Pembangun" type="button">Pembangun</button>
+        </div>
+
+        <label class="label" for="fokusIndustri">Fokus Industri</label>
+        <select id="fokusIndustri">
+          <option value="">Pilih bidang (kalau umum pun boleh)</option>
+          <option>Teknologi</option>
+          <option>Penjagaan Kesihatan</option>
+          <option>Kewangan</option>
+          <option>Pendidikan</option>
+          <option>Pemasaran</option>
+          <option>Undang-undang</option>
+          <option>Sains</option>
+          <option>Media</option>
+          <option>Pelancongan</option>
+          <option>Umum</option>
+        </select>
+      </article>
+
+      <!-- BOX 3 -->
+      <article class="card">
+        <h3>Tema</h3>
+
+        <label class="label" for="temaInput">Tema (Pilihan)</label>
+        <input id="temaInput" placeholder="Taip di sini… atau pilih di bawah (comel-comel 💗)" />
+
+        <div class="chips" id="temaChips" aria-label="Pilihan tema">
+          <button class="chip" data-value="Wira-wira Marvel" type="button">Wira-wira Marvel</button>
+          <button class="chip" data-value="Harry Potter" type="button">Harry Potter</button>
+          <button class="chip" data-value="SpongeBob" type="button">SpongeBob</button>
+          <button class="chip" data-value="Star Wars" type="button">Star Wars</button>
+          <button class="chip" data-value="Disney" type="button">Disney</button>
+          <button class="chip" data-value="Pokémon" type="button">Pokémon</button>
+          <button class="chip" data-value="Minecraft" type="button">Minecraft</button>
+          <button class="chip" data-value="Studio Ghibli" type="button">Studio Ghibli</button>
+          <button class="chip" data-value="DC Comics" type="button">DC Comics</button>
+          <button class="chip" data-value="Roblox" type="button">Roblox</button>
+          <button class="chip" data-value="BlackPink" type="button">BlackPink</button>
+          <button class="chip" data-value="Fortnite" type="button">Fortnite</button>
+          <button class="chip" data-value="BTS" type="button">BTS</button>
+          <button class="chip" data-value="Upin Ipin" type="button">Upin Ipin</button>
+          <button class="chip" data-value="BoBoiBoy" type="button">BoBoiBoy</button>
+          <button class="chip" data-value="Ejen Ali" type="button">Ejen Ali</button>
+          <button class="chip" data-value="Papazola" type="button">Papazola</button>
+          <button class="chip" data-value="Lego" type="button">Lego</button>
+          <button class="chip" data-value="Hello Kitty" type="button">Hello Kitty</button>
+          <button class="chip" data-value="The Simpsons" type="button">The Simpsons</button>
+        </div>
+      </article>
+
+      <!-- BOX 4 -->
+      <article class="card">
+        <h3>Butiran Infografik</h3>
+
+        <label class="label" for="skemaWarnaInput">Skema Warna</label>
+        <input id="skemaWarnaInput" placeholder="Contoh: colorful / pastel / monokrom…" />
+
+        <div class="chips" id="warnaChips" aria-label="Pilihan skema warna">
+          <button class="chip" data-value="Gula-gula" type="button">🍬 Gula-gula</button>
+          <button class="chip" data-value="Berwarna-warni" type="button">🎨 Berwarna-warni</button>
+          <button class="chip" data-value="Sejuk" type="button">❄️ Sejuk</button>
+          <button class="chip" data-value="Monokrom" type="button">⚫ Monokrom</button>
+          <button class="chip" data-value="Neutral" type="button">⚪ Neutral</button>
+          <button class="chip" data-value="Pastel" type="button">🌸 Pastel</button>
+          <button class="chip" data-value="Meriah" type="button">✨ Meriah</button>
+          <button class="chip" data-value="Hangat" type="button">🔥 Hangat</button>
+          <button class="chip" data-value="Cat Air" type="button">💧 Cat Air</button>
+        </div>
+
+        <label class="label" for="latarInput">Gaya Latar Belakang</label>
+        <input id="latarInput" placeholder="Contoh: white / gradien / paper texture…" />
+
+        <div class="chips single" id="latarWarnaChips" aria-label="Warna latar">
+          <button class="chip" data-value="Putih" type="button">Putih</button>
+          <button class="chip" data-value="Kelabu Muda" type="button">Kelabu Muda</button>
+          <button class="chip" data-value="Gelap" type="button">Gelap</button>
+          <button class="chip" data-value="Gradien" type="button">Gradien</button>
+        </div>
+
+        <div class="chips" id="latarTeksturChips" aria-label="Tekstur latar">
+          <button class="chip" data-value="Tekstur Kertas" type="button">Tekstur Kertas</button>
+          <button class="chip" data-value="Tekstur Digital" type="button">Tekstur Digital</button>
+          <button class="chip" data-value="Tekstur Buku Nota" type="button">Tekstur Buku Nota</button>
+        </div>
+
+        <label class="label" for="fontSelect">Keutamaan Fon</label>
+        <select id="fontSelect">
+          <option value="">Cikgu nak fon yang comel atau moden?</option>
+          <option>Krayon</option>
+          <option>Paparan (Tebal)</option>
+          <option>Geometrik (Bersih)</option>
+          <option>Tulisan Tangan</option>
+          <option>Marker</option>
+          <option>Monospace (Teknologi)</option>
+          <option>Pensil</option>
+          <option>Bulat (Mesra)</option>
+          <option>Sans-serif (Moden)</option>
+          <option>Skrip (Elegan)</option>
+          <option>Serif (Klasik)</option>
+          <option>Slab Serif (Kuat)</option>
+        </select>
+      </article>
+    </section>
+
+    <!-- CTA (Jana) -->
+    <section class="cta">
+      <button id="btnJana" class="btn" disabled>JANA PROMPT SEKARANG 💗</button>
+      <div class="hint" id="hintText">Cikgu isi semua 9 pilihan dulu ya, baru Cikgu Moon boleh jana ✨</div>
+    </section>
+
+    <!-- PROMPT BOX BAWAH PAGE (PINK + BUNGA + UNICORN BUTTON) -->
+    <section class="moon-prompt-section">
+      <div class="moon-prompt-card">
+        <h2 class="moon-prompt-title">🌸 Prompt Dijana 🌸</h2>
+
+        <textarea
+          class="moon-prompt-box"
+          placeholder="Prompt cantik dari Cikgu Moon akan muncul di sini… 💗"
+          readonly
+          id="output"
+        ></textarea>
+
+        <div class="moon-prompt-actions">
+          <button id="btnTukar" class="moon-btn secondary" type="button">🔄 Tukar</button>
+          <button id="btnSalin" class="moon-btn primary" type="button">🦄 Salin Prompt</button>
+        </div>
+
+        <div class="moon-toast" id="toast" aria-live="polite"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
