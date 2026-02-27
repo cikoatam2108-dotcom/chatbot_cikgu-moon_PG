@@ -201,3 +201,40 @@ function toast(msg){
 
 // initial
 validate();
+
+// ===== MODE TOGGLE: Infografik / Slaid =====
+(() => {
+  const btnInfografik = document.getElementById("btnModeInfografik");
+  const btnSlaid = document.getElementById("btnModeSlaid");
+
+  const layoutSection = document.getElementById("layoutSection");
+  const orientasiSection = document.getElementById("orientasiSection");
+
+  if(!btnInfografik || !btnSlaid || !layoutSection || !orientasiSection) return;
+
+  let mode = "infografik"; // default
+
+  function setMode(next){
+    mode = next;
+
+    // Toggle button active UI
+    btnInfografik.classList.toggle("is-active", mode === "infografik");
+    btnSlaid.classList.toggle("is-active", mode === "slaid");
+    btnInfografik.setAttribute("aria-selected", mode === "infografik" ? "true" : "false");
+    btnSlaid.setAttribute("aria-selected", mode === "slaid" ? "true" : "false");
+
+    // Toggle medan
+    layoutSection.style.display = (mode === "infografik") ? "" : "none";
+    orientasiSection.style.display = (mode === "slaid") ? "" : "none";
+
+    // OPTIONAL: kalau Cikgu ada function semak siap/enable button,
+    // panggil balik kat sini supaya button "JANA" update ikut mode.
+    if (typeof window.checkReady === "function") window.checkReady();
+  }
+
+  btnInfografik.addEventListener("click", () => setMode("infografik"));
+  btnSlaid.addEventListener("click", () => setMode("slaid"));
+
+  // start
+  setMode("infografik");
+})();
