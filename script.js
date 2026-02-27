@@ -200,41 +200,27 @@ function toast(msg){
 }
 
 // initial
+// ===== FIX: ORIENTASI SLAID (chip single-select) =====
+(function setupOrientasiChips(){
+  const box = document.getElementById("orientasiChips");
+  if(!box) return;
+
+  box.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if(!btn) return;
+
+    // buang active dari chip lain (single select)
+    box.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
+
+    // set active
+    btn.classList.add("is-active");
+
+    // simpan value (kalau Cikgu ada state/variable sendiri, tukar sini)
+    window.__orientasiSlaid = btn.dataset.value || btn.textContent.trim();
+
+    // kalau ada validate() dalam file Cikgu
+    if(typeof validate === "function") validate();
+  });
+})();
 validate();
 
-// ===== MODE TOGGLE: Infografik / Slaid =====
-(() => {
-  const btnInfografik = document.getElementById("btnModeInfografik");
-  const btnSlaid = document.getElementById("btnModeSlaid");
-
-  const layoutSection = document.getElementById("layoutSection");
-  const orientasiSection = document.getElementById("orientasiSection");
-
-  if(!btnInfografik || !btnSlaid || !layoutSection || !orientasiSection) return;
-
-  let mode = "infografik"; // default
-
-  function setMode(next){
-    mode = next;
-
-    // Toggle button active UI
-    btnInfografik.classList.toggle("is-active", mode === "infografik");
-    btnSlaid.classList.toggle("is-active", mode === "slaid");
-    btnInfografik.setAttribute("aria-selected", mode === "infografik" ? "true" : "false");
-    btnSlaid.setAttribute("aria-selected", mode === "slaid" ? "true" : "false");
-
-    // Toggle medan
-    layoutSection.style.display = (mode === "infografik") ? "" : "none";
-    orientasiSection.style.display = (mode === "slaid") ? "" : "none";
-
-    // OPTIONAL: kalau Cikgu ada function semak siap/enable button,
-    // panggil balik kat sini supaya button "JANA" update ikut mode.
-    if (typeof window.checkReady === "function") window.checkReady();
-  }
-
-  btnInfografik.addEventListener("click", () => setMode("infografik"));
-  btnSlaid.addEventListener("click", () => setMode("slaid"));
-
-  // start
-  setMode("infografik");
-})();
