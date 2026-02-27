@@ -223,4 +223,39 @@ function toast(msg){
   });
 })();
 validate();
+// ===============================
+// OVERRIDE CHIP CLICK (CONFIRM JADI)
+// ===============================
+(function () {
+  // guna CAPTURE supaya dia jalan dulu walaupun ada code lama
+  document.addEventListener(
+    "click",
+    (e) => {
+      const chip = e.target.closest(".chip");
+      if (!chip) return;
 
+      // elak button submit / side effect
+      e.preventDefault();
+
+      const group = chip.closest("#orientasiChips, #layoutChips, #audiensChips, #temaChips, #warnaChips, #latarWarnaChips, #latarTeksturChips");
+      if (!group) return;
+
+      // mode "single" untuk orientasi + layout + latarWarna (Cikgu boleh tambah/remove group ikut perlu)
+      const isSingle =
+        group.id === "orientasiChips" ||
+        group.id === "layoutChips" ||
+        group.id === "latarWarnaChips";
+
+      if (isSingle) {
+        group.querySelectorAll(".chip").forEach((c) => c.classList.remove("is-active"));
+        chip.classList.add("is-active");
+      } else {
+        chip.classList.toggle("is-active");
+      }
+
+      // kalau ada fungsi validate(), panggil supaya butang JANA ikut update
+      if (typeof validate === "function") validate();
+    },
+    true
+  );
+})();
