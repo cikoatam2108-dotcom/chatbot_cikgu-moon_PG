@@ -40,23 +40,26 @@ body{
 }
 
 /* HERO */
-.hero{
-  text-align:center;
-  margin-bottom: 14px;
-}
-
+.hero{ margin-bottom: 14px; }
 .hero-title{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap: 30px;
+  gap: 16px;
 }
 
 .hero-img{
-  height: clamp(210px, 22vw, 220px);
-  width: auto;
-  flex-shrink: 0;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
+  height: 120px; /* ✅ Cikgu nak besar sikit */
+  width:auto;
+  flex-shrink:0;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.15));
+}
+
+.hero-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap: 10px;
 }
 
 .title{
@@ -78,9 +81,36 @@ body{
 }
 
 .subtitle{
-  margin: 10px auto 0;
-  max-width: 62ch;
+  margin: 0;
+  min-height: 18px; /* ruang kosong */
   color: var(--muted);
+}
+
+/* Toggle */
+.mode-toggle{
+  display:inline-flex;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(255, 160, 200, .35);
+  box-shadow: 0 10px 24px rgba(180, 90, 160, .18);
+  gap: 6px;
+}
+
+.mode-btn{
+  border: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+  color: #d63384;
+  background: rgba(255, 235, 246, .9);
+}
+
+.mode-btn.is-active{
+  background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff);
+  color: #5a2150;
+  box-shadow: 0 10px 22px rgba(180, 90, 160, .22);
 }
 
 /* GRID 4 box */
@@ -92,16 +122,10 @@ body{
 }
 
 .card{
-  background: linear-gradient(
-    180deg,
-    rgba(255, 214, 232, .75) 0%,
-    rgba(255,255,255,.72) 100%
-  );
+  background: linear-gradient(180deg, rgba(255, 214, 232, .75) 0%, rgba(255,255,255,.72) 100%);
   border: 1px solid rgba(255, 170, 210, .55);
   border-radius: var(--radius);
-  box-shadow:
-    0 22px 55px rgba(255, 160, 200, 0.22),
-    inset 0 0 0 2px rgba(255,255,255,0.55);
+  box-shadow: 0 22px 55px rgba(255, 160, 200, 0.22), inset 0 0 0 2px rgba(255,255,255,0.55);
   padding: 14px 14px 16px;
   backdrop-filter: blur(10px);
   min-height: 300px;
@@ -109,31 +133,27 @@ body{
   overflow: hidden;
 }
 
-.card::before,
-.card::after{
+.card::before{
+  content:"🌸";
   position:absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 26px;
+  opacity:.22;
+  pointer-events:none;
+}
+.card::after{
+  content:"🍬";
+  position:absolute;
+  bottom: 12px;
+  left: 12px;
+  font-size: 24px;
   opacity:.22;
   pointer-events:none;
 }
 
-.card::before{
-  content:"🌸";
-  top: 10px;
-  right: 12px;
-  font-size: 26px;
-}
-
-.card::after{
-  content:"🍬";
-  bottom: 12px;
-  left: 12px;
-  font-size: 24px;
-}
-
-/* TAJUK TAB (pelangi unicorn + teks pink) */
-.card-title{
-  margin: 0 0 12px;
-}
+/* Tajuk tab */
+.card-title{ margin: 0 0 12px; }
 
 .tab-unicorn{
   display:inline-flex;
@@ -142,12 +162,10 @@ body{
   padding: 8px 18px;
   border-radius: 999px;
   background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff);
-  color: #d63384;                 /* teks pink */
+  color: #d63384;
   font-size: 16px;
   font-weight: 900;
-  box-shadow:
-    0 10px 24px rgba(180, 90, 160, 0.25),
-    inset 0 0 0 2px rgba(255,255,255,0.7);
+  box-shadow: 0 10px 24px rgba(180, 90, 160, 0.25), inset 0 0 0 2px rgba(255,255,255,0.7);
 }
 
 .label{
@@ -156,7 +174,6 @@ body{
   margin: 12px 0 6px;
   color: rgba(150, 55, 105, .92);
   font-weight: 800;
-  letter-spacing: .2px;
 }
 
 select, input{
@@ -172,11 +189,10 @@ select, input{
 
 select:focus, input:focus{
   border-color: rgba(255, 120, 180, .85);
-  box-shadow:
-    0 0 0 4px rgba(255, 130, 190, .18),
-    0 0 0 8px rgba(160, 220, 255, .12);
+  box-shadow: 0 0 0 4px rgba(255, 130, 190, .18), 0 0 0 8px rgba(160, 220, 255, .12);
 }
 
+/* Chips */
 .chips{
   display:flex;
   flex-wrap:wrap;
@@ -195,11 +211,12 @@ select:focus, input:focus{
   color: rgba(120, 30, 80, .85);
 }
 
+/* ✅ ACTIVE CHIP pelangi unicorn timbul */
 .chip.is-active{
-  border-color: rgba(255, 120, 180, .95);
-  background: linear-gradient(90deg, rgba(255,154,213,.55), rgba(255,216,107,.45), rgba(143,230,255,.45), rgba(205,180,255,.55));
-  color: rgba(90, 20, 75, .95);
-  box-shadow: 0 8px 18px rgba(180, 90, 160, .22);
+  border-color: rgba(255, 120, 180, .95) !important;
+  background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff) !important;
+  color: #5a2150 !important;
+  box-shadow: 0 10px 22px rgba(180, 90, 160, .22) !important;
 }
 
 .chipgrid{
@@ -242,7 +259,7 @@ select:focus, input:focus{
   max-width: 70ch;
 }
 
-/* PROMPT BOX BAWAH */
+/* Prompt box */
 .moon-prompt-section{
   margin: 60px auto 20px;
   padding: 0 6px;
@@ -255,23 +272,13 @@ select:focus, input:focus{
   background: linear-gradient(180deg, #ffe6f1 0%, #fff0f7 100%);
   border-radius: 26px;
   padding: 28px 26px 30px;
-  box-shadow:
-    0 20px 50px rgba(255, 160, 200, 0.35),
-    inset 0 0 0 2px rgba(255,255,255,0.6);
+  box-shadow: 0 20px 50px rgba(255, 160, 200, 0.35), inset 0 0 0 2px rgba(255,255,255,0.6);
   position: relative;
   overflow:hidden;
 }
 
-.moon-prompt-card::before,
-.moon-prompt-card::after{
-  position:absolute;
-  font-size: 42px;
-  opacity:.23;
-  pointer-events:none;
-}
-
-.moon-prompt-card::before{ content:"🌸"; top: 14px; left: 16px; }
-.moon-prompt-card::after{ content:"🌼"; bottom: 16px; right: 18px; }
+.moon-prompt-card::before{ content:"🌸"; position:absolute; top:14px; left:16px; font-size:42px; opacity:.23; }
+.moon-prompt-card::after{ content:"🌼"; position:absolute; bottom:16px; right:18px; font-size:42px; opacity:.23; }
 
 .moon-prompt-title{
   text-align:center;
@@ -279,7 +286,6 @@ select:focus, input:focus{
   font-weight: 950;
   margin: 0 0 16px;
   color: #b03a6f;
-  text-shadow: 0 1px 0 rgba(255,255,255,.8);
 }
 
 .moon-prompt-box{
@@ -311,12 +317,11 @@ select:focus, input:focus{
   font-size: 14px;
   font-weight: 800;
   cursor:pointer;
-  transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
 }
 
 .moon-btn.primary{
-  background: linear-gradient(90deg, #ff9ad5, #ffd86b, #8fe6ff, #cdb4ff);
-  color: #d63384;  /* teks pink macam Cikgu nak */
+  background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff);
+  color: #d63384;
   box-shadow: 0 10px 24px rgba(180, 90, 160, 0.45);
 }
 
@@ -324,11 +329,6 @@ select:focus, input:focus{
   background: rgba(255,255,255,.92);
   color: #c04c7d;
   box-shadow: 0 6px 16px rgba(200, 120, 160, 0.25);
-}
-
-.moon-btn:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(180, 90, 160, 0.45);
 }
 
 .moon-toast{
@@ -339,126 +339,16 @@ select:focus, input:focus{
   min-height: 16px;
 }
 
-/* RESPONSIVE */
+/* Responsive */
 @media (max-width: 1100px){
   .grid{ grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 980px){
   .chipgrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .hero-title{ justify-content:flex-start; }
 }
 @media (max-width: 560px){
   .grid{ grid-template-columns: 1fr; }
   .title{ white-space: normal; }
-}
-/* FIX: paksa semua kotak sama lebar (tak span) */
-.grid > .card{
-  grid-column: auto / span 1 !important;
-}
-/* ===== MODE TOGGLE (Infografik / Slaid) ===== */
-.mode-toggle{
-  display:inline-flex;
-  padding: 6px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.70);
-  border: 1px solid rgba(255, 170, 210, .35);
-  box-shadow: 0 12px 30px rgba(180, 90, 160, 0.18);
-  gap: 6px;
-}
-
-.mode-btn{
-  border: none;
-  cursor: pointer;
-  padding: 10px 14px;
-  border-radius: 999px;
-  font-weight: 900;
-  font-size: 13px;
-  color: #d63384;              /* teks pink */
-  background: transparent;
-}
-
-.mode-btn.is-active{
-  background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff);
-  box-shadow:
-    0 10px 22px rgba(180, 90, 160, 0.22),
-    inset 0 0 0 2px rgba(255,255,255,0.75);
-}
-
-.hero-left{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:12px;
-}
-
-.hero-title{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap: 18px;
-}
-
-.hero-right{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap: 10px;
-}
-
-/* ================================
-   FIX: CHIP ACTIVE = PELANGI UNICORN (UNTUK SEMUA CHIP)
-   ================================ */
-.chip.is-active{
-  border-color: rgba(255, 120, 180, .95) !important;
-  background: linear-gradient(
-    90deg,
-    rgba(255,154,213,.75),
-    rgba(255,216,107,.70),
-    rgba(143,230,255,.70),
-    rgba(205,180,255,.75)
-  ) !important;
-  color: rgba(90, 20, 75, .98) !important;
-  box-shadow: 0 8px 18px rgba(180, 90, 160, .22) !important;
-}
-
-/* optional: nampak glow comel sikit */
-.chip.is-active{
-  transform: translateY(-1px);
-}
-
-/* Buang outline biru bila click chip */
-.chip:focus,
-.chip:focus-visible{
-  outline: none !important;
-}
-
-/* Paksa orientasi chip ikut style pelangi bila aktif */
-#orientasiChips .chip.is-active{
-  border-color: rgba(255, 120, 180, .95) !important;
-  background: linear-gradient(
-    90deg,
-    rgba(255,154,213,.75),
-    rgba(255,216,107,.70),
-    rgba(143,230,255,.70),
-    rgba(205,180,255,.75)
-  ) !important;
-  color: rgba(90, 20, 75, .98) !important;
-  box-shadow: 0 8px 18px rgba(180, 90, 160, .22) !important;
-}
-
-#orientasiChips .chip.is-active{
-  border-color: rgba(255, 120, 180, .95) !important;
-  background: linear-gradient(90deg,
-    rgba(255,154,213,.55),
-    rgba(255,216,107,.45),
-    rgba(143,230,255,.45),
-    rgba(205,180,255,.55)
-  ) !important;
-  color: rgba(90, 20, 75, .95) !important;
-  box-shadow: 0 8px 18px rgba(180, 90, 160, .22) !important;
-}
-#orientasiChips .chip.is-active,
-#layoutChips .chip.is-active{
-  background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff) !important;
-  color: #5a2150 !important;
-  border-color: rgba(255, 120, 180, .95) !important;
+  .hero-img{ height: 96px; }
 }
