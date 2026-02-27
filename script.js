@@ -92,7 +92,13 @@ chipSingle("layoutChips", (v) => state.layout = v);       // infografik
 chipSingle("orientasiChips", (v) => state.layout = v);    // slaid (lands­kap/potret)
 
 chipMulti("audiensChips", state.audiens);
-chipMulti("temaChips", state.tema);
+const temaSelect = $("temaSelect");
+
+temaSelect?.addEventListener("change", () => {
+  const selected = Array.from(temaSelect.selectedOptions).map(o => o.textContent.trim());
+  state.tema = selected;
+  validate();
+});
 chipMulti("warnaChips", state.skemaWarna);
 chipMulti("latarWarnaChips", state.latar);
 chipMulti("latarTeksturChips", state.tekstur);
