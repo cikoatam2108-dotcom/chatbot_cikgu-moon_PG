@@ -240,4 +240,8 @@ $("btnModeSlaid")?.addEventListener("click", () => setMode("slaid"));
 
 // init
 setMode("infografik");
-validate();
+chipSingle("gayaVisualQuick", (v) => {
+  state.gayaVisual = v;
+  $("gayaVisual").value = ""; // kosongkan dropdown bila chip dipilih
+  validate();
+});
