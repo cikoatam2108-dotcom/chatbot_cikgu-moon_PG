@@ -71,9 +71,15 @@ $("audiensInput")?.addEventListener("input", (e) => {
   validate();
 });
 
-$("temaInput")?.addEventListener("input", (e) => {
-  const v = e.target.value.trim();
-  state.tema = v ? uniq(v.split(",").map(s => s.trim())) : [];
+const temaSelect = $("temaSelect");
+
+temaSelect?.addEventListener("change", () => {
+  const selected = Array.from(temaSelect.selectedOptions)
+    .map(option => option.textContent.trim());
+
+  state.tema = selected;
+
+  console.log("Tema dipilih:", state.tema); // boleh tengok kat console
   validate();
 });
 
