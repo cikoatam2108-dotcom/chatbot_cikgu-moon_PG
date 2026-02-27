@@ -48,23 +48,35 @@
       <option>Steampunk</option><option>Ukiyo-e</option>
     </select>
 
-    <label class="label">Susun Atur (lajur / grid)</label>
-    <div class="chipgrid single" id="layoutChips" aria-label="Lajur atau Grid">
-      <button class="chip" data-value="Satu Lajur" type="button">Satu Lajur</button>
-      <button class="chip" data-value="2 Lajur" type="button">2 Lajur</button>
-      <button class="chip" data-value="3 Lajur" type="button">3 Lajur</button>
-      <button class="chip" data-value="4 Lajur" type="button">4 Lajur</button>
+    <!-- ✅ INFROGRAFIK: Susun Atur -->
+<div id="layoutSection">
+  <label class="label">Susun Atur (lajur / grid)</label>
+  <div class="chipgrid single" id="layoutChips" aria-label="Lajur atau Grid">
+    <button class="chip" data-value="Satu Lajur" type="button">Satu Lajur</button>
+    <button class="chip" data-value="2 Lajur" type="button">2 Lajur</button>
+    <button class="chip" data-value="3 Lajur" type="button">3 Lajur</button>
+    <button class="chip" data-value="4 Lajur" type="button">4 Lajur</button>
 
-      <button class="chip" data-value="Grid Panel 2×2" type="button">Grid 2×2</button>
-      <button class="chip" data-value="Grid Panel 3×2" type="button">Grid 3×2</button>
-      <button class="chip" data-value="Grid Panel 3×3" type="button">Grid 3×3</button>
-      <button class="chip" data-value="Grid Panel 4×2" type="button">Grid 4×2</button>
-      <button class="chip" data-value="Grid Panel 4×3" type="button">Grid 4×3</button>
+    <button class="chip" data-value="Grid Panel 2×2" type="button">Grid 2×2</button>
+    <button class="chip" data-value="Grid Panel 3×2" type="button">Grid 3×2</button>
+    <button class="chip" data-value="Grid Panel 3×3" type="button">Grid 3×3</button>
+    <button class="chip" data-value="Grid Panel 4×2" type="button">Grid 4×2</button>
+    <button class="chip" data-value="Grid Panel 4×3" type="button">Grid 4×3</button>
 
-      <button class="chip" data-value="Asimetrik" type="button">Asimetrik</button>
-      <button class="chip" data-value="Bentuk Bebas" type="button">Bentuk Bebas</button>
-    </div>
+    <button class="chip" data-value="Asimetrik" type="button">Asimetrik</button>
+    <button class="chip" data-value="Bentuk Bebas" type="button">Bentuk Bebas</button>
+  </div>
+</div>
 
+<!-- ✅ SLAID: Orientasi -->
+<div id="orientasiSection" style="display:none;">
+  <label class="label">Orientasi Slaid</label>
+  <div class="chips single" id="orientasiChips" aria-label="Orientasi Slaid">
+    <button class="chip" data-value="Landskap" type="button">Landskap</button>
+    <button class="chip" data-value="Potret" type="button">Potret</button>
+  </div>
+</div>
+    
     <label class="label" for="nada">Nada Penulisan</label>
     <select id="nada">
       <option value="">Nak formal ke santai?</option>
