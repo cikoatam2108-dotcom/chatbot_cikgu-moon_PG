@@ -49,9 +49,10 @@ body{
 }
 
 .hero-img{
-  .hero-img{
-  height: clamp(150px, 18vw, 220px);
+  height: 180px;   /* cuba 160–200 ikut sedap mata */
   width: auto;
+  flex-shrink:0;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.15));
 }
 
 .hero-right{
