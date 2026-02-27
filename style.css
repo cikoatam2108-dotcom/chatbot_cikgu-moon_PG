@@ -352,3 +352,10 @@ select:focus, input:focus{
   .title{ white-space: normal; }
   .hero-img{ height: 96px; }
 }
+select#gayaVisual{
+  border: 2px solid rgba(255, 120, 180, .55);
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff) border-box;
+  border-radius: 14px;
+}
