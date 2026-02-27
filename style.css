@@ -49,7 +49,7 @@ body{
 }
 
 .hero-img{
-  height: 180px;   /* cuba 160–200 ikut sedap mata */
+  height: 200px;   /* cuba 160–200 ikut sedap mata */
   width: auto;
   flex-shrink:0;
   filter: drop-shadow(0 6px 10px rgba(0,0,0,.15));
