@@ -3,7 +3,7 @@ const $ = (id) => document.getElementById(id);
 
 const state = {
   gayaVisual: "",
-  layout: "",
+  layout: "", // akan simpan Susun Atur (Infografik) ATAU Orientasi (Slaid)
   nada: "",
   audiens: [],
   fokusIndustri: "",
@@ -12,36 +12,45 @@ const state = {
   latar: [],
   tekstur: [],
   font: "",
+  _warnaTyped: "",
+  _latarTyped: "",
 };
 
 function uniq(arr){ return Array.from(new Set(arr.filter(Boolean))); }
 
+// ===== Chips =====
 function chipSingle(containerId, onPick){
   const wrap = $(containerId);
+  if(!wrap) return;
+
   wrap.addEventListener("click", (e) => {
     const btn = e.target.closest(".chip");
     if(!btn) return;
+
     wrap.querySelectorAll(".chip").forEach(b => b.classList.remove("is-active"));
     btn.classList.add("is-active");
-    onPick(btn.dataset.value);
+
+    onPick(btn.dataset.value || btn.textContent.trim());
     validate();
   });
 }
 
 function chipMulti(containerId, arrRef){
   const wrap = $(containerId);
+  if(!wrap) return;
+
   wrap.addEventListener("click", (e) => {
     const btn = e.target.closest(".chip");
     if(!btn) return;
 
-    const v = btn.dataset.value;
+    const v = btn.dataset.value || btn.textContent.trim();
     const isActive = btn.classList.toggle("is-active");
     if(isActive) arrRef.push(v);
-    else {
+    else{
       const idx = arrRef.indexOf(v);
       if(idx >= 0) arrRef.splice(idx,1);
     }
-    // keep unique
+
     const u = uniq(arrRef);
     arrRef.length = 0;
     arrRef.push(...u);
@@ -51,53 +60,47 @@ function chipMulti(containerId, arrRef){
 }
 
 // ===== Bind inputs =====
-$("gayaVisual").addEventListener("change", (e) => { state.gayaVisual = e.target.value.trim(); validate(); });
-$("nada").addEventListener("change", (e) => { state.nada = e.target.value.trim(); validate(); });
-$("fokusIndustri").addEventListener("change", (e) => { state.fokusIndustri = e.target.value.trim(); validate(); });
-$("fontSelect").addEventListener("change", (e) => { state.font = e.target.value.trim(); validate(); });
+$("gayaVisual")?.addEventListener("change", (e) => { state.gayaVisual = e.target.value.trim(); validate(); });
+$("nada")?.addEventListener("change", (e) => { state.nada = e.target.value.trim(); validate(); });
+$("fokusIndustri")?.addEventListener("change", (e) => { state.fokusIndustri = e.target.value.trim(); validate(); });
+$("fontSelect")?.addEventListener("change", (e) => { state.font = e.target.value.trim(); validate(); });
 
-$("audiensInput").addEventListener("input", (e) => {
+$("audiensInput")?.addEventListener("input", (e) => {
   const v = e.target.value.trim();
   state.audiens = v ? uniq(v.split(",").map(s => s.trim())) : [];
   validate();
 });
 
-$("temaInput").addEventListener("input", (e) => {
+$("temaInput")?.addEventListener("input", (e) => {
   const v = e.target.value.trim();
   state.tema = v ? uniq(v.split(",").map(s => s.trim())) : [];
   validate();
 });
 
-$("skemaWarnaInput").addEventListener("input", (e) => {
-  // let user type extra, but still require at least 1 chip/type
-  const v = e.target.value.trim();
-  // store typed as 1 item if not empty
-  // (chips will add more)
-  state._warnaTyped = v;
+$("skemaWarnaInput")?.addEventListener("input", (e) => {
+  state._warnaTyped = e.target.value.trim();
   validate();
 });
 
-$("latarInput").addEventListener("input", (e) => {
-  const v = e.target.value.trim();
-  state._latarTyped = v;
+$("latarInput")?.addEventListener("input", (e) => {
+  state._latarTyped = e.target.value.trim();
   validate();
 });
 
 // ===== Chips wiring =====
-chipSingle("layoutChips", (v) => state.layout = v);
+chipSingle("layoutChips", (v) => state.layout = v);       // infografik
+chipSingle("orientasiChips", (v) => state.layout = v);    // slaid (lands­kap/potret)
 
 chipMulti("audiensChips", state.audiens);
 chipMulti("temaChips", state.tema);
 chipMulti("warnaChips", state.skemaWarna);
-
-// latar: chips 2 kumpulan (warna + tekstur) — gabungkan dalam output
 chipMulti("latarWarnaChips", state.latar);
 chipMulti("latarTeksturChips", state.tekstur);
 
-// ===== Validate (9 medan wajib) =====
+// ===== Validate =====
 const requiredFields = [
   { key: "gayaVisual", label: "Gaya Visual" },
-  { key: "layout", label: "Lajur atau Grid" },
+  { key: "layout", label: "Susun Atur / Orientasi" },
   { key: "nada", label: "Nada" },
   { key: "audiens", label: "Sasaran Audiens" },
   { key: "fokusIndustri", label: "Fokus Industri" },
@@ -113,7 +116,6 @@ function isFilled(field){
 }
 
 function validate(){
-  // allow typed skema warna/latar count as filled if user type
   const warnaFilled = state.skemaWarna.length > 0 || (state._warnaTyped && state._warnaTyped.length > 0);
   const latarFilled = state.latar.length > 0 || state.tekstur.length > 0 || (state._latarTyped && state._latarTyped.length > 0);
 
@@ -146,36 +148,36 @@ function buildPrompt(){
   const tema = uniq(state.tema).join(", ");
   const warna = uniq([...(state.skemaWarna || []), state._warnaTyped].filter(Boolean)).join(", ");
   const latar = uniq([...(state.latar || []), ...(state.tekstur || []), state._latarTyped].filter(Boolean)).join(", ");
-
   const temaLine = tema ? `Masukkan elemen tema: ${tema}. ` : "";
 
   return (
-`Hasilkan infografik yang padat dan mudah difahami. ` +
-`Gaya visual: ${state.gayaVisual}. ` +
-`Susun atur: ${state.layout}. ` +
-`Skema warna: ${warna}. ` +
-`Keutamaan fon: ${state.font}. ` +
-`Gaya latar belakang: ${latar}. ` +
-`Nada penulisan: ${state.nada}. ` +
-`Sasaran audiens: ${audiens}. ` +
-`Fokus industri: ${state.fokusIndustri}. ` +
-temaLine +
-`Pastikan susun atur seimbang, tajuk jelas, poin ringkas, ikon/ilustrasi comel, dan hasil nampak kemas serta profesional dengan vibe Cikgu Moon tone.`
+    `Hasilkan infografik yang padat dan mudah difahami. ` +
+    `Gaya visual: ${state.gayaVisual}. ` +
+    `Susun atur / orientasi: ${state.layout}. ` +
+    `Skema warna: ${warna}. ` +
+    `Keutamaan fon: ${state.font}. ` +
+    `Gaya latar belakang: ${latar}. ` +
+    `Nada penulisan: ${state.nada}. ` +
+    `Sasaran audiens: ${audiens}. ` +
+    `Fokus industri: ${state.fokusIndustri}. ` +
+    temaLine +
+    `Pastikan susun atur seimbang, tajuk jelas, poin ringkas, ikon/ilustrasi comel, dan hasil nampak kemas serta profesional dengan vibe Cikgu Moon tone.`
   );
 }
 
-$("btnJana").addEventListener("click", () => {
+// ===== Buttons =====
+$("btnJana")?.addEventListener("click", () => {
   if(!validate()) return;
   $("output").value = buildPrompt();
   toast("Dah siap! Prompt comel masuk kat bawah 💗");
 });
 
-$("btnTukar").addEventListener("click", () => {
+$("btnTukar")?.addEventListener("click", () => {
   $("output").value = buildPrompt();
   toast("Dah tukar ayat sikit ✨");
 });
 
-$("btnSalin").addEventListener("click", async () => {
+$("btnSalin")?.addEventListener("click", async () => {
   const text = $("output").value.trim();
   if(!text){
     toast("Belum ada prompt lagi 🥺 Tekan JANA dulu ya.");
@@ -185,7 +187,6 @@ $("btnSalin").addEventListener("click", async () => {
     await navigator.clipboard.writeText(text);
     toast("Dah salin! 🦄💗");
   }catch{
-    // fallback
     $("output").select();
     document.execCommand("copy");
     toast("Dah salin (cara lama) 💗");
@@ -199,5 +200,44 @@ function toast(msg){
   tmr = setTimeout(() => $("toast").textContent = "", 2200);
 }
 
-// initial
+// ===== Toggle Mode =====
+let mode = "infografik";
+
+function clearChipActive(id){
+  const w = $(id);
+  if(!w) return;
+  w.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
+}
+
+function setMode(next){
+  mode = next;
+
+  const btnInfo = $("btnModeInfografik");
+  const btnSlaid = $("btnModeSlaid");
+  const layoutSection = $("layoutSection");
+  const orientasiSection = $("orientasiSection");
+
+  btnInfo?.classList.toggle("is-active", mode === "infografik");
+  btnSlaid?.classList.toggle("is-active", mode === "slaid");
+  btnInfo?.setAttribute("aria-selected", mode === "infografik" ? "true" : "false");
+  btnSlaid?.setAttribute("aria-selected", mode === "slaid" ? "true" : "false");
+
+  if(layoutSection && orientasiSection){
+    layoutSection.style.display = (mode === "infografik") ? "" : "none";
+    orientasiSection.style.display = (mode === "slaid") ? "" : "none";
+  }
+
+  // reset value bila tukar mode supaya user pilih semula
+  state.layout = "";
+  clearChipActive("layoutChips");
+  clearChipActive("orientasiChips");
+
+  validate();
+}
+
+$("btnModeInfografik")?.addEventListener("click", () => setMode("infografik"));
+$("btnModeSlaid")?.addEventListener("click", () => setMode("slaid"));
+
+// init
+setMode("infografik");
 validate();
