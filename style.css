@@ -424,3 +424,23 @@ select:focus, input:focus{
 .chip.is-active{
   transform: translateY(-1px);
 }
+
+/* Buang outline biru bila click chip */
+.chip:focus,
+.chip:focus-visible{
+  outline: none !important;
+}
+
+/* Paksa orientasi chip ikut style pelangi bila aktif */
+#orientasiChips .chip.is-active{
+  border-color: rgba(255, 120, 180, .95) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(255,154,213,.75),
+    rgba(255,216,107,.70),
+    rgba(143,230,255,.70),
+    rgba(205,180,255,.75)
+  ) !important;
+  color: rgba(90, 20, 75, .98) !important;
+  box-shadow: 0 8px 18px rgba(180, 90, 160, .22) !important;
+}
