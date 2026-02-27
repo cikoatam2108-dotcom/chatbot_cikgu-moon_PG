@@ -14,11 +14,12 @@
     <!-- HERO -->
     <header class="hero">
       <div class="hero-title">
+        <!-- LOGO (jangan ubah tempat) -->
         <img src="assets/logo.png" alt="Cikgu Moon" class="hero-img" />
 
-        <!-- Kolum kanan: Tajuk + Toggle -->
+        <!-- Kolum kanan: Tajuk + Toggle (Infografik/Slaid) -->
         <div class="hero-right">
-          <h1 class="title">MOONLIGHT SPACE</h1>
+          <h1 class="title">CHATBOT CIKGU MOON</h1>
 
           <div class="mode-toggle" role="tablist" aria-label="Paparan">
             <button id="btnModeInfografik" class="mode-btn is-active" type="button" role="tab" aria-selected="true">
@@ -29,7 +30,7 @@
             </button>
           </div>
 
-          <!-- Subtitle kosong (Cikgu nak ruang kosong) -->
+          <!-- Subtitle kosong (ruang kosong macam Cikgu nak) -->
           <p class="subtitle"></p>
         </div>
       </div>
@@ -45,12 +46,52 @@
         <label class="label" for="gayaVisual">Gaya Visual (pilih satu ya)</label>
         <select id="gayaVisual">
           <option value="">Pilih gaya yang Cikgu suka…</option>
-          <option>3D</option><option>Akademik</option><option>Anime</option><option>Bersejarah</option>
-          <option>Buku Pop-Up</option><option>Ceria</option><option>Chibi</option><option>Diorama</option>
-          <option>Futuristik</option><option>Ilustrasi</option><option>Komik</option><option>Korporat</option>
-          <option>Minimalis</option><option>Nota Lakaran</option><option>Pelan Biru</option><option>Pelekat</option>
-          <option>Peta Minda</option><option>Potongan Kertas</option><option>Profesional</option><option>Retro</option>
-          <option>Steampunk</option><option>Ukiyo-e</option>
+
+          <!-- asal -->
+          <option>3D</option>
+          <option>Akademik</option>
+          <option>Anime</option>
+          <option>Bersejarah</option>
+          <option>Buku Pop-Up</option>
+          <option>Ceria</option>
+          <option>Chibi</option>
+          <option>Diorama</option>
+          <option>Futuristik</option>
+          <option>Ilustrasi</option>
+          <option>Komik</option>
+          <option>Korporat</option>
+          <option>Minimalis</option>
+          <option>Nota Lakaran</option>
+          <option>Pelan Biru</option>
+          <option>Pelekat</option>
+          <option>Peta Minda</option>
+          <option>Potongan Kertas</option>
+          <option>Profesional</option>
+          <option>Retro</option>
+          <option>Steampunk</option>
+          <option>Ukiyo-e</option>
+
+          <!-- tambahan (tak biasa) -->
+          <option>Chibi Educational</option>
+          <option>Chibi Scrapbook</option>
+          <option>Chibi Sketchnotes</option>
+          <option>Chibi SketchNotes</option>
+          <option>Chibi Cute</option>
+          <option>Chibi Doodle</option>
+          <option>Chibi Watercolor</option>
+          <option>Chibi Kawaii</option>
+          <option>Studygram Notes</option>
+          <option>Komik Edukasi</option>
+          <option>Graffiti</option>
+          <option>Neon Graffiti</option>
+          <option>Street Art</option>
+          <option>Pastel Street Art</option>
+          <option>Urban Sketch</option>
+          <option>3D Pixar Crochet</option>
+          <option>Sticker Cut</option>
+          <option>Die Cut</option>
+          <option>Dre Cut</option>
+          <option>Pixar Felt Sticker</option>
         </select>
 
         <!-- INFROGRAFIK: SUSUN ATUR -->
@@ -85,17 +126,30 @@
         <label class="label" for="nada">Nada Penulisan</label>
         <select id="nada">
           <option value="">Nak formal ke santai?</option>
-          <option>Formal</option><option>Santai</option><option>Pendidikan</option><option>Jenaka</option>
-          <option>Persuasif</option><option>Puitis</option><option>Penceritaan</option><option>Teknikal</option>
+          <option>Formal</option>
+          <option>Santai</option>
+          <option>Pendidikan</option>
+          <option>Jenaka</option>
+          <option>Persuasif</option>
+          <option>Puitis</option>
+          <option>Penceritaan</option>
+          <option>Teknikal</option>
           <option>Mendesak</option>
         </select>
 
         <label class="label" for="fokusIndustri">Fokus Industri</label>
         <select id="fokusIndustri">
           <option value="">Pilih bidang (kalau umum pun boleh)</option>
-          <option>Teknologi</option><option>Penjagaan Kesihatan</option><option>Kewangan</option><option>Pendidikan</option>
-          <option>Pemasaran</option><option>Undang-undang</option><option>Sains</option><option>Media</option>
-          <option>Pelancongan</option><option>Umum</option>
+          <option>Teknologi</option>
+          <option>Penjagaan Kesihatan</option>
+          <option>Kewangan</option>
+          <option>Pendidikan</option>
+          <option>Pemasaran</option>
+          <option>Undang-undang</option>
+          <option>Sains</option>
+          <option>Media</option>
+          <option>Pelancongan</option>
+          <option>Umum</option>
         </select>
       </article>
 
@@ -118,51 +172,57 @@
           <button class="chip" data-value="Pembangun" type="button">Pembangun</button>
         </div>
 
+        <label class="label" for="temaInput">Tema (Pilihan)</label>
+        <input id="temaInput" placeholder="Taip di sini… atau pilih di bawah 💗" />
+
+        <!-- ✅ TEMA CHIPS (SEMUA) -->
         <div class="chips" id="temaChips">
 
-  <!-- 🌍 POP CULTURE -->
-  <button class="chip" data-value="Wira-wira Marvel" type="button">🦸 Wira-wira Marvel</button>
-  <button class="chip" data-value="DC Comics" type="button">🦸 DC Comics</button>
-  <button class="chip" data-value="Harry Potter" type="button">🪄 Harry Potter</button>
-  <button class="chip" data-value="Star Wars" type="button">🚀 Star Wars</button>
-  <button class="chip" data-value="Disney" type="button">🏰 Disney</button>
-  <button class="chip" data-value="Studio Ghibli" type="button">🌿 Studio Ghibli</button>
-  <button class="chip" data-value="Pokémon" type="button">⚡ Pokémon</button>
-  <button class="chip" data-value="Minecraft" type="button">🧱 Minecraft</button>
-  <button class="chip" data-value="Roblox" type="button">🎮 Roblox</button>
-  <button class="chip" data-value="SpongeBob" type="button">🌊 SpongeBob</button>
+          <!-- 🌍 POP CULTURE -->
+          <button class="chip" data-value="Wira-wira Marvel" type="button">🦸 Wira-wira Marvel</button>
+          <button class="chip" data-value="DC Comics" type="button">🦸 DC Comics</button>
+          <button class="chip" data-value="Harry Potter" type="button">🪄 Harry Potter</button>
+          <button class="chip" data-value="Star Wars" type="button">🚀 Star Wars</button>
+          <button class="chip" data-value="Disney" type="button">🏰 Disney</button>
+          <button class="chip" data-value="Studio Ghibli" type="button">🌿 Studio Ghibli</button>
+          <button class="chip" data-value="Pokémon" type="button">⚡ Pokémon</button>
+          <button class="chip" data-value="Minecraft" type="button">🧱 Minecraft</button>
+          <button class="chip" data-value="Roblox" type="button">🎮 Roblox</button>
+          <button class="chip" data-value="SpongeBob" type="button">🌊 SpongeBob</button>
 
-  <!-- 🌸 CHIBI SERIES -->
-  <button class="chip" data-value="Chibi Educational" type="button">🌸 Chibi Educational</button>
-  <button class="chip" data-value="Chibi Scrapbook" type="button">🌸 Chibi Scrapbook</button>
-  <button class="chip" data-value="Chibi Sketchnotes" type="button">🌸 Chibi Sketchnotes</button>
-  <button class="chip" data-value="Chibi SketchNotes" type="button">🌸 Chibi SketchNotes</button>
-  <button class="chip" data-value="Chibi Cute" type="button">🌸 Chibi Cute</button>
-  <button class="chip" data-value="Chibi Doodle" type="button">🌸 Chibi Doodle</button>
-  <button class="chip" data-value="Chibi Watercolor" type="button">🌸 Chibi Watercolor</button>
-  <button class="chip" data-value="Chibi Kawaii" type="button">🌸 Chibi Kawaii</button>
+          <!-- 🌸 CHIBI SERIES -->
+          <button class="chip" data-value="Chibi Educational" type="button">🌸 Chibi Educational</button>
+          <button class="chip" data-value="Chibi Scrapbook" type="button">🌸 Chibi Scrapbook</button>
+          <button class="chip" data-value="Chibi Sketchnotes" type="button">🌸 Chibi Sketchnotes</button>
+          <button class="chip" data-value="Chibi SketchNotes" type="button">🌸 Chibi SketchNotes</button>
+          <button class="chip" data-value="Chibi Cute" type="button">🌸 Chibi Cute</button>
+          <button class="chip" data-value="Chibi Doodle" type="button">🌸 Chibi Doodle</button>
+          <button class="chip" data-value="Chibi Watercolor" type="button">🌸 Chibi Watercolor</button>
+          <button class="chip" data-value="Chibi Kawaii" type="button">🌸 Chibi Kawaii</button>
 
-  <!-- 📚 EDU STYLE -->
-  <button class="chip" data-value="Studygram Notes" type="button">📚 Studygram Notes</button>
-  <button class="chip" data-value="Komik Edukasi" type="button">📚 Komik Edukasi</button>
+          <!-- 📚 EDU STYLE -->
+          <button class="chip" data-value="Studygram Notes" type="button">📚 Studygram Notes</button>
+          <button class="chip" data-value="Komik Edukasi" type="button">📚 Komik Edukasi</button>
 
-  <!-- 🎨 URBAN STYLE -->
-  <button class="chip" data-value="Graffiti" type="button">🎨 Graffiti</button>
-  <button class="chip" data-value="Neon Graffiti" type="button">🎨 Neon Graffiti</button>
-  <button class="chip" data-value="Street Art" type="button">🎨 Street Art</button>
-  <button class="chip" data-value="Pastel Street Art" type="button">🎨 Pastel Street Art</button>
-  <button class="chip" data-value="Urban Sketch" type="button">🎨 Urban Sketch</button>
+          <!-- 🎨 URBAN STYLE -->
+          <button class="chip" data-value="Graffiti" type="button">🎨 Graffiti</button>
+          <button class="chip" data-value="Neon Graffiti" type="button">🎨 Neon Graffiti</button>
+          <button class="chip" data-value="Street Art" type="button">🎨 Street Art</button>
+          <button class="chip" data-value="Pastel Street Art" type="button">🎨 Pastel Street Art</button>
+          <button class="chip" data-value="Urban Sketch" type="button">🎨 Urban Sketch</button>
 
-  <!-- 🧸 3D / STICKER STYLE -->
-  <button class="chip" data-value="3D Pixar Crochet" type="button">🧸 3D Pixar Crochet</button>
-  <button class="chip" data-value="Sticker Cut" type="button">🧸 Sticker Cut</button>
-  <button class="chip" data-value="Die Cut" type="button">🧸 Die Cut</button>
-  <button class="chip" data-value="Dre Cut" type="button">🧸 Dre Cut</button>
-  <button class="chip" data-value="Pixar Felt Sticker" type="button">🧸 Pixar Felt Sticker</button>
-  <button class="chip" data-value="Anime" type="button">🧸 Anime</button>
+          <!-- 🧸 3D / STICKER STYLE -->
+          <button class="chip" data-value="3D Pixar Crochet" type="button">🧸 3D Pixar Crochet</button>
+          <button class="chip" data-value="Sticker Cut" type="button">🧸 Sticker Cut</button>
+          <button class="chip" data-value="Die Cut" type="button">🧸 Die Cut</button>
+          <button class="chip" data-value="Dre Cut" type="button">🧸 Dre Cut</button>
+          <button class="chip" data-value="Pixar Felt Sticker" type="button">🧸 Pixar Felt Sticker</button>
+          <button class="chip" data-value="Anime" type="button">🧸 Anime</button>
 
-</div>
-        <!-- BOX 3 -->
+        </div>
+      </article>
+
+      <!-- BOX 3 -->
       <article class="card">
         <h3 class="card-title"><span class="tab-unicorn">Tema Visual</span></h3>
 
@@ -205,12 +265,21 @@
         <label class="label" for="fontSelect">Keutamaan Fon</label>
         <select id="fontSelect">
           <option value="">Cikgu nak fon yang comel atau moden?</option>
-          <option>Krayon</option><option>Paparan (Tebal)</option><option>Geometrik (Bersih)</option>
-          <option>Tulisan Tangan</option><option>Marker</option><option>Monospace (Teknologi)</option>
-          <option>Pensil</option><option>Bulat (Mesra)</option><option>Sans-serif (Moden)</option>
-          <option>Skrip (Elegan)</option><option>Serif (Klasik)</option><option>Slab Serif (Kuat)</option>
+          <option>Krayon</option>
+          <option>Paparan (Tebal)</option>
+          <option>Geometrik (Bersih)</option>
+          <option>Tulisan Tangan</option>
+          <option>Marker</option>
+          <option>Monospace (Teknologi)</option>
+          <option>Pensil</option>
+          <option>Bulat (Mesra)</option>
+          <option>Sans-serif (Moden)</option>
+          <option>Skrip (Elegan)</option>
+          <option>Serif (Klasik)</option>
+          <option>Slab Serif (Kuat)</option>
         </select>
       </article>
+
     </section>
 
     <!-- CTA -->
@@ -224,7 +293,12 @@
       <div class="moon-prompt-card">
         <h2 class="moon-prompt-title">🌸 Prompt Dijana 🌸</h2>
 
-        <textarea class="moon-prompt-box" placeholder="Prompt cantik dari Cikgu Moon akan muncul di sini… 💗" readonly id="output"></textarea>
+        <textarea
+          class="moon-prompt-box"
+          placeholder="Prompt cantik dari Cikgu Moon akan muncul di sini… 💗"
+          readonly
+          id="output"
+        ></textarea>
 
         <div class="moon-prompt-actions">
           <button id="btnTukar" class="moon-btn secondary" type="button">🔄 Tukar</button>
@@ -234,9 +308,10 @@
         <div class="moon-toast" id="toast" aria-live="polite"></div>
       </div>
     </section>
+
   </main>
 
-  <!-- ✅ script load SEKALI sahaja (paling bawah) -->
-  <script src="script.js?v=1000"></script>
+  <!-- Script load SEKALI sahaja (paling bawah) -->
+  <script src="script.js?v=2026-02-28-99"></script>
 </body>
 </html>
