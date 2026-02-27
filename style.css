@@ -49,10 +49,9 @@ body{
 }
 
 .hero-img{
-  height: 210px; /* ✅ Cikgu nak besar sikit */
-  width:auto;
-  flex-shrink:0;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,.15));
+  .hero-img{
+  height: clamp(150px, 18vw, 220px);
+  width: auto;
 }
 
 .hero-right{
