@@ -444,3 +444,15 @@ select:focus, input:focus{
   color: rgba(90, 20, 75, .98) !important;
   box-shadow: 0 8px 18px rgba(180, 90, 160, .22) !important;
 }
+
+#orientasiChips .chip.is-active{
+  border-color: rgba(255, 120, 180, .95) !important;
+  background: linear-gradient(90deg,
+    rgba(255,154,213,.55),
+    rgba(255,216,107,.45),
+    rgba(143,230,255,.45),
+    rgba(205,180,255,.55)
+  ) !important;
+  color: rgba(90, 20, 75, .95) !important;
+  box-shadow: 0 8px 18px rgba(180, 90, 160, .22) !important;
+}
