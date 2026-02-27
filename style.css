@@ -354,3 +354,31 @@ select:focus, input:focus{
 .grid > .card{
   grid-column: auto / span 1 !important;
 }
+/* ===== MODE TOGGLE (Infografik / Slaid) ===== */
+.mode-toggle{
+  display:inline-flex;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.70);
+  border: 1px solid rgba(255, 170, 210, .35);
+  box-shadow: 0 12px 30px rgba(180, 90, 160, 0.18);
+  gap: 6px;
+}
+
+.mode-btn{
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+  color: #d63384;              /* teks pink */
+  background: transparent;
+}
+
+.mode-btn.is-active{
+  background: linear-gradient(90deg,#ff9ad5,#ffd86b,#8fe6ff,#cdb4ff);
+  box-shadow:
+    0 10px 22px rgba(180, 90, 160, 0.22),
+    inset 0 0 0 2px rgba(255,255,255,0.75);
+}
