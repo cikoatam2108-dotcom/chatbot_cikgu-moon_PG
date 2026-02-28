@@ -3,7 +3,7 @@ const $ = (id) => document.getElementById(id);
 
 const state = {
   gayaVisual: "",
-  layout: "", // akan simpan Susun Atur (Infografik) ATAU Orientasi (Slaid)
+  layout: "", // Susun Atur (Infografik) ATAU Orientasi (Slaid)
   nada: "",
   audiens: [],
   fokusIndustri: "",
@@ -45,12 +45,14 @@ function chipMulti(containerId, arrRef){
 
     const v = btn.dataset.value || btn.textContent.trim();
     const isActive = btn.classList.toggle("is-active");
+
     if(isActive) arrRef.push(v);
     else{
       const idx = arrRef.indexOf(v);
       if(idx >= 0) arrRef.splice(idx,1);
     }
 
+    // keep unique
     const u = uniq(arrRef);
     arrRef.length = 0;
     arrRef.push(...u);
@@ -71,15 +73,13 @@ $("audiensInput")?.addEventListener("input", (e) => {
   validate();
 });
 
-const temaSelect = $("temaSelect");
-
-temaSelect?.addEventListener("change", () => {
-  const selected = Array.from(temaSelect.selectedOptions)
-    .map(option => option.textContent.trim());
+// ✅ Tema dropdown (multiple)
+const temaSelectEl = $("temaSelect");
+temaSelectEl?.addEventListener("change", () => {
+  const selected = Array.from(temaSelectEl.selectedOptions)
+    .map(o => o.textContent.trim().replace(/^[^\w(]+/u, "").trim()); // buang emoji depan
 
   state.tema = selected;
-
-  console.log("Tema dipilih:", state.tema); // boleh tengok kat console
   validate();
 });
 
@@ -94,17 +94,10 @@ $("latarInput")?.addEventListener("input", (e) => {
 });
 
 // ===== Chips wiring =====
-chipSingle("layoutChips", (v) => state.layout = v);       // infografik
-chipSingle("orientasiChips", (v) => state.layout = v);    // slaid (lands­kap/potret)
+chipSingle("layoutChips", (v) => state.layout = v);       // Infografik
+chipSingle("orientasiChips", (v) => state.layout = v);    // Slaid
 
 chipMulti("audiensChips", state.audiens);
-const temaSelect = $("temaSelect");
-
-temaSelect?.addEventListener("change", () => {
-  const selected = Array.from(temaSelect.selectedOptions).map(o => o.textContent.trim());
-  state.tema = selected;
-  validate();
-});
 chipMulti("warnaChips", state.skemaWarna);
 chipMulti("latarWarnaChips", state.latar);
 chipMulti("latarTeksturChips", state.tekstur);
@@ -239,7 +232,7 @@ function setMode(next){
     orientasiSection.style.display = (mode === "slaid") ? "" : "none";
   }
 
-  // reset value bila tukar mode supaya user pilih semula
+  // reset layout supaya user pilih ikut mode
   state.layout = "";
   clearChipActive("layoutChips");
   clearChipActive("orientasiChips");
@@ -252,8 +245,4 @@ $("btnModeSlaid")?.addEventListener("click", () => setMode("slaid"));
 
 // init
 setMode("infografik");
-chipSingle("gayaVisualQuick", (v) => {
-  state.gayaVisual = v;
-  $("gayaVisual").value = ""; // kosongkan dropdown bila chip dipilih
-  validate();
-});
+validate();
